@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Locais</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="" debounce="500" (ionChange)="search($event)" animated></ion-searchbar>
+
+  <!-- Skeleton screen -->
+  <ion-list *ngIf="loading" fixed>
+    <ion-item *ngFor="let skeleton of skeletons">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2><ion-skeleton-text class="h20" animated></ion-skeleton-text></h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let place of places; let i = index">
+      <ion-item [routerLink]="['form', place.id]">
+        <ion-avatar slot="start">
+          <ion-icon size="large" name="locate-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ place.name }}</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" expandable (click)="deleteConfirm(place.name, place.id, i)">
+          Excluir
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="!loading && places.length < 1">
+      Nenhum Resultado
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="!loading" threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando ...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['form']">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="spin" *ngIf="loading">
+      <ion-spinner name="crescent" color="light"></ion-spinner>
+    </div>
+
+    <ion-card *ngIf="!loading && !topics" class="ion-text-center">
+      <h4>Nenhuma publicação nessa categoria</h4>
+      <ion-button col-4 icon-left color="primary" (click)="goToHome()">
+        <ion-icon name="chevron-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </ion-card>
+
+    <!-- Error messages -->
+    <ion-card *ngIf="errorMessage || !isInternet" class="ion-text-center">
+      <h4 *ngIf="errorMessage">Não foi possível carregar</h4>
+      <h4 *ngIf="!isInternet">Você está sem internet!</h4>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-button col-4 icon-left color="primary" (click)="load()">
+          <ion-icon name="refresh"></ion-icon>
+          Tentar Novamente
+        </ion-button>
+      </ion-row>
+    </ion-card>
+
+    <ion-grid fixed *ngIf="!loading">
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of topics" (click)="goToPost(item.id)">
+          <div class="back_image4 bg_image" dynamicBg [ngStyle]="{'background-image': item.photo_file ? 'url('+item.photo_file+')' : null}">
+            <ion-label class="bold_lbl">{{(item.title.length>40)? (item.title | slice:0:40)+'..':(item.title)}}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-infinite-scroll *ngIf="isInternet && !completed" threshold="100px" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingText="Carregando...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </div>
+</ion-content>

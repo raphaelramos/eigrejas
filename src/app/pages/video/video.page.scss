@@ -1,0 +1,130 @@
+.main_content_div{
+    width: 100%;
+
+    ion-label {
+        display: block;
+    }
+
+    .video_div{
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    .video_size {
+        width: 100%;
+        height: 240px;
+    }
+
+    .cont_div{
+        padding: 10px;
+    }
+
+    .flex_div{
+        display: flex;
+        .back_image{
+            height: 70px;
+            width: 60px;
+            border-radius: 5px;
+            min-width: 60px;
+        }
+        .content_div{
+            padding-left: 10px;
+
+            .title_lbl{
+                font-family: 'medium';
+                margin-bottom: 5px;
+            }
+            .light_lbl{
+                color: gray;
+                margin-bottom: 5px;
+            }
+        }
+    }
+    .detail_lbl{
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .see_more{
+        text-align: right;
+        font-size: 15px;
+        color: gray;
+    }
+    .gray_lbl{
+        color: gray;
+        font-size: 13px;
+    }
+
+    ion-button{
+        --background: #202020;
+        --border-radius: 3px;
+        height: 35px;
+        font-size: 12px;
+    }
+
+    .head_lbl{
+        font-family: 'medium';
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        position: relative;
+        
+        ion-icon{
+            position: absolute;
+            right: 0;
+            font-size: 20px;
+            color: #707070;
+        }
+    }
+
+    .flex_div2{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: relative;
+
+        .back_image4{
+            height: 100px;
+            width: 165px;
+            border-radius: 5px;
+        }
+
+        .name{
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .bold_lbl{
+            font-family: 'medium';
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-transform: uppercase;
+        }
+
+        .play_div{
+            display: flex;
+            align-items: center;
+            position: absolute;
+            bottom: 0;
+            .play{
+                font-size: 20px;
+                margin-right: 10px;
+            }
+            .name{
+                font-size: 14px;
+                margin-top: 0px;
+            }
+        }
+    }
+
+    ion-slide{
+        margin-right: 7px;
+    }
+
+    .back_image2{
+        height: 140px;
+        width: 100%;
+        border-radius: 5px;
+    }
+}

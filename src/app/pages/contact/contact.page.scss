@@ -1,0 +1,10 @@
+@import "../../form.scss";
+
+ion-textarea {
+    background: rgb(148, 137, 145, 0.3);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 100px;
+    --padding-start: 8px !important;
+    color: white;
+}

@@ -1,0 +1,23 @@
+<ion-header mode="md">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Languages</ion-title>
+        <ion-button class="search_btn" slot="end" fill="clear" size="small">
+            <ion-icon name="search" color="light"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="main_content_div">
+        <ion-row>
+            <ion-col size="6" *ngFor="let item of languages">
+                <div class="back_image bg_image" [style.backgroundImage]="'url('+ item.img +')'">
+                    <ion-label>{{item.name}}</ion-label>
+                </div>    
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

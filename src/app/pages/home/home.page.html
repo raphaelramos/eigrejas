@@ -1,0 +1,143 @@
+<ion-header>
+    <div class="header_div">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <img *ngIf="!logo" src="assets/imgs/logo_text.svg">
+        <ion-img *ngIf="logo" [src]="logo" style="width: 180px;"></ion-img>
+        <!-- <ion-button class="search_btn" slot="end" fill="clear" size="small">
+            <ion-icon slot="icon-only" name="search-outline" color="light"></ion-icon>
+        </ion-button> -->
+    </div>
+</ion-header>
+
+<ion-content>
+    <div class="main_content_div">
+
+        <!-- Error messages -->
+        <ion-card *ngIf="errorMessage || !isInternet" class="ion-text-center">
+            <h4 *ngIf="errorMessage && isInternet">Houve um erro :/</h4>
+            <h4 *ngIf="!isInternet">Você está sem internet!</h4>
+
+            <ion-row class="ion-justify-content-center">
+                <ion-button col-4 icon-left color="primary" (click)="load()">
+                  <ion-icon name="refresh"></ion-icon>
+                  Tentar Novamente
+                </ion-button>
+              </ion-row>
+        </ion-card>
+    
+        <div class="spin" *ngIf="loading">
+            <ion-spinner name="crescent" color="light"></ion-spinner>
+        </div>
+
+        <!-- Banners -->
+        <div *ngFor="let banners of listBanners">
+            <div *ngIf="banners.original.banners_count > 0">
+
+                <div *ngIf="banners.original.type == 1">
+                    <ion-slides mode="ios">
+                        <ion-slide *ngFor="let item of banners.original.banners; let i = index">
+                            <div class="back_image bg_image" [style.backgroundImage]="'url('+item.file+')'" (click)="goBanner(item.link_url)">
+                                <ion-label>{{i+1}}/{{banners.original.banners_count}}</ion-label>
+                            </div>
+                        </ion-slide>
+                    </ion-slides>
+                </div>
+                
+                <!-- Banners Stories -->
+                <div *ngIf="banners.original.type == 3">
+                    <ion-slides mode="ios" [options]="slideOpts2">
+                        <ion-slide *ngFor="let item of banners.original.banners; let i = index" (click)="openStory(i, banners.original.banners)">
+                            <div class="flex_div">
+                                <div class="back_image3 bg_image" [style.backgroundImage]="'url('+item.file+')'"></div>
+                                <ion-label class="name">{{item.title | slice:0:10}}</ion-label>
+                            </div>
+                        </ion-slide>
+                    </ion-slides>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Topics -->
+        <div *ngFor="let topics of newsTopics">
+            <div *ngIf="topics?.original.topics_count > 0">
+
+                <!-- Text type -->
+                <div *ngIf="topics?.original.type == 0">
+                    <ion-label class="head_lbl" (click)="goToCatList(topics.original.section_id, topics.original.section_title)">
+                        {{topics.original.section_title}} 
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </ion-label>
+                    <ion-slides mode="ios" [options]="slideOpts3">
+                        <ion-slide *ngFor="let item of topics.original.topics" (click)="goToPost(item.id)">
+                            <div class="back_image4 bg_image" dynamicBg [ngStyle]="{'background-image': item.photo_file ? 'url('+item.photo_file+')' : null}">
+                                <ion-label class="bold_lbl">{{(item.title.length>40)? (item.title | slice:0:40)+'..':(item.title)}}</ion-label>
+                            </div>
+                        </ion-slide>
+                        <ion-slide *ngIf="topics.original.topics_count > 3" (click)="goToCatList(topics.original.section_id, topics.original.section_title)">
+                            <div class="back_image4 bg_image">
+                                <ion-label class="bold_lbl">Veja Mais</ion-label>
+                            </div>
+                        </ion-slide>
+                    </ion-slides>
+                </div>
+
+                <!-- Youtube type -->
+                <div *ngIf="topics?.original.type == 6">
+                    <div *ngFor="let channel of topics.original.topics">
+                        <ion-label class="head_lbl" (click)="goToYoutubeList(channel.id, channel.title)">
+                            {{channel.title}}
+                            <ion-icon name="chevron-forward-outline"></ion-icon>
+                        </ion-label>
+                        <ion-slides mode="ios" [options]="slideOpts3">
+                            <ion-slide *ngFor="let item of channel.details.items" (click)="goToYoutube(item.id.videoId)">
+                                <div class="back_image2 bg_image" [style.backgroundImage]="'url('+item.snippet.thumbnails.medium.url+')'">
+                                    <div class="flex_div">
+                                        <ion-label class="live" *ngIf="item.snippet?.liveBroadcastContent == 'live'">LIVE</ion-label>
+                                        <ion-label class="live" *ngIf="item.snippet?.liveBroadcastContent == 'upcoming'">EM BREVE</ion-label>
+                                        <div class="play_div">
+                                            <ion-icon name="caret-forward-outline" class="play"></ion-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ion-slide>
+                            <ion-slide *ngIf="channel.details.items.length > 3" (click)="goToYoutubeList(channel.id, channel.title)">
+                                <div class="back_image4 bg_image">
+                                    <ion-label class="bold_lbl">Veja Mais</ion-label>
+                                </div>
+                            </ion-slide>
+                        </ion-slides>
+                    </div>
+                </div>
+
+                <!-- Vídeo type -->
+                <div *ngIf="topics?.original.type == 2">
+                    <ion-label class="head_lbl" (click)="goToVideoList(topics.original.section_id, topics.original.section_title)">
+                        {{topics.original.section_title}} 
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </ion-label>
+                    <ion-slides mode="ios" [options]="slideOpts3">
+                        <ion-slide *ngFor="let item of topics.original.topics" (click)="goToVideo(item.id)">
+                            <div class="back_image4 bg_image" [ngStyle]="{'background-image': item.photo_file ? 'url('+item.photo_file+')' : 'url('+ytThumb(item.video_file)+')'}">
+                                <div class="flex_div">
+                                    <div class="play_div">
+                                        <ion-icon name="caret-forward-outline" class="play"></ion-icon>
+                                        <ion-label class="name">{{item.title}}</ion-label>
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-slide>
+                        <ion-slide *ngIf="topics.original.topics_count > 3" (click)="goToVideoList(topics.original.section_id, topics.original.section_title)">
+                            <div class="back_image4 bg_image">
+                                <ion-label class="bold_lbl">Veja Mais</ion-label>
+                            </div>
+                        </ion-slide>
+                    </ion-slides>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</ion-content>

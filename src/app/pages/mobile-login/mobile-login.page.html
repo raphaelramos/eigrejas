@@ -1,0 +1,29 @@
+<ion-header mode="md">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+      <ion-label class="simp_lbl">Continue with mobile number</ion-label>
+
+      <div class="mobile_btn">
+          <ion-label>+91 |</ion-label>
+          <ion-input type="text" placeholder="Your mobile number"></ion-input>
+      </div>
+
+      <ion-button expand="block" (click)="goToHome()">
+          CONTINUE
+          <ion-icon name="chevron-forward"></ion-icon>
+      </ion-button>
+
+      <ion-label class="small_lbl">
+          By clicking continue, you agree to our <span>Terms of Use</span> <br>and acknowledge that 
+          you have read our <span>Privacy Policy</span>
+      </ion-label>
+
+  </div>
+</ion-content>

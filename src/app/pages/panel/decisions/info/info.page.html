@@ -1,0 +1,39 @@
+<ion-content>
+  <div class="main_content_div">
+    <div class="back_user">
+      <ion-icon class="user" name="person-circle-outline"></ion-icon>
+      <ion-icon name="chevron-back" class="back_icn" (click)="goToBack()"></ion-icon>
+    </div>
+    <div class="ion-text-center">
+      <ion-label class="username">{{ decision?.name }}</ion-label>
+      <ion-label class="location" *ngIf="decision?.phone">
+        {{ decision?.phone | simpleMask:'(99) 99999-9999' }}
+      </ion-label>
+      <p>
+        <span>{{ decision?.decision_date | date : 'shortDate' }}</span>
+        <span>{{ decision?.note }}</span>
+      </p>
+    </div>
+
+    <ion-item color="none" lines="none">
+      <ion-select placeholder="Alterar Status" cancelText="Cancelar" (ionChange)="status($event)">
+        <ion-select-option *ngFor="let status of decisionsStatus" value="{{ status.id }}">{{ status.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" color="tertiary" [routerLink]="['/panel/decisions/contacts', decision?.id]">
+      Acompanhar
+    </ion-button>
+    <ion-button expand="block" [routerLink]="['/panel/decisions/form', decision?.id]">
+      Editar
+    </ion-button>
+    <ion-button expand="block" *ngIf="decision?.phone" (click)="call(decision?.phone)">
+      Ligar
+    </ion-button>
+    <ion-button expand="block" *ngIf="decision?.phone" (click)="whatsapp(decision?.phone)">
+      WhatsApp
+    </ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteConfirm()">
+      Excluir
+    </ion-button>
+  </div>

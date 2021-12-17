@@ -1,0 +1,20 @@
+<ion-content fullscreen>
+  <div class="main_content_div">
+
+    <img src="assets/imgs/logo.svg" class="ion-text-center logo">
+
+    <div class="ion-text-center">
+      <h5>Confira o vídeo e continue</h5>
+
+      <video width="90%" height="auto" controls="controls" autoplay="autoplay">
+        <source src="https://eigrejas.com/uploads/videos/bem-vindo.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <ion-label class="abs_lbl" (click)="openChurch()">
+      <span *ngIf="!loading">Continuar</span>
+      <ion-spinner *ngIf="loading" name="crescent" color="light"></ion-spinner>
+    </ion-label>
+
+  </div>
+</ion-content>

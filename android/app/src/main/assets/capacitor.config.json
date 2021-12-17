@@ -1,0 +1,35 @@
+{
+	"appId": "com.r2company.eigrejas",
+	"appName": "e-igrejas",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"androidScaleType": "CENTER_CROP",
+			"launchShowDuration": 6000,
+			"launchAutoHide": false,
+			"splashFullScreen": true
+		}
+	},
+	"cordova": {
+		"preferences": {
+			"YouTubeDataApiKey": "",
+			"ScrollEnabled": "false",
+			"android-minSdkVersion": "24",
+			"android-targetSdkVersion": "29",
+			"AndroidPersistentFileLocation": "Internal",
+			"AndroidLaunchMode": "singleTask",
+			"AndroidXEnabled": "true",
+			"BackupWebStorage": "none",
+			"SplashMaintainAspectRatio": "true",
+			"FadeSplashScreenDuration": "400",
+			"SplashShowOnlyFirstTime": "false",
+			"ShowSplashScreenSpinner": "false",
+			"SplashScreen": "screen",
+			"SplashScreenDelay": "3000",
+			"WKWebViewOnly": "true",
+			"CordovaWebViewEngine": "CDVWKWebViewEngine"
+		}
+	}
+}

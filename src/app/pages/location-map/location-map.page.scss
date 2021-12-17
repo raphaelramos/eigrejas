@@ -1,0 +1,55 @@
+ion-content {
+    --background: #F9F9FC;
+}
+
+.main_content_div {
+    height: 100%;
+    width: 100%;
+
+    #map{
+        width: 100%;
+        height: 100%;
+    }
+
+    .abs_div {
+        padding: 40px 16px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        z-index: 999;
+    }
+
+    .input_div {
+        background: white;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 25px;
+        border: 1px solid lightgrey;
+        height: 50px;
+    
+        ion-input {
+            border-radius: 5px;
+            height: 50px;
+            --padding-start: 16px;
+            --padding-end: 16px;
+            font-family: 'regular';
+        }
+    
+        ion-icon{
+            color: var(--ion-color-primary);
+            margin-right: 16px;
+            font-size: 18px;
+        }
+    }
+
+    .gredient_btn {
+        width: 100%;
+        margin: 0;
+    }
+}

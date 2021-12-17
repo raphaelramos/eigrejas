@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar class="bg-color">
+      <ion-title>{{title}}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button>X</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content tappable scrollbar allowAllScreens='true'>
+    <div 
+    style="padding: 0px 12px 0px 12px"
+    [style.font-size]="font"
+    [innerHTML]="text"></div>
+</ion-content>

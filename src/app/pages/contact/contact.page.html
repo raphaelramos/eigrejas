@@ -1,0 +1,81 @@
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="header_flex">
+      <ion-button (click)="goToHome()" size="small" fill="clear">
+        <ion-icon name="chevron-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </div>
+
+    <ion-label class="bold_lbl">Contato</ion-label>
+
+    <!-- Register form -->
+    <form [formGroup]="onContactForm" class="list-form">
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome" formControlName="contact_name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onContactForm.get('contact_name').touched && onContactForm.get('contact_name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Assunto" type="text" formControlName="contact_subject">
+          <ion-icon name="pencil"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onContactForm.get('contact_subject').touched && onContactForm.get('contact_subject').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Email" type="email" formControlName="contact_email">
+          <ion-icon name="mail"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onContactForm.get('contact_email').touched && onContactForm.get('contact_email').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="onContactForm.get('contact_email').touched && onContactForm.get('contact_email').hasError('email')">
+        <ion-text color="warning">
+          Email inválido
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-textarea placeholder="Mensagem" type="text" formControlName="contact_message"></ion-textarea>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onContactForm.get('contact_message').touched && onContactForm.get('contact_message').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+    </form>
+
+    <!-- backend errors -->
+    <ng-container *ngIf="formStatus" class="ion-padding-top">
+      <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+        <div *ngFor="let error of formStatus.errors">
+          <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+            {{ error }}
+          </ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+    <ion-progress-bar color="light" type="indeterminate" *ngIf="saving && formStatus.canShowErrors()"></ion-progress-bar>
+
+    <ion-button expand="block" class="ion-padding-top" (click)="send()" [disabled]="!onContactForm.valid">
+      Enviar
+    </ion-button>
+
+  </div>
+</ion-content>

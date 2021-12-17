@@ -1,0 +1,44 @@
+.main_content_div {
+    width: 100%;
+
+    .bg-text {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: black;
+    }
+    
+    .padding-text {
+        padding: 5px 15px 5px 15px;
+    }
+
+    :host ::ng-deep .has-text-align-right {
+        font-size: 18px;
+        text-align: end;
+        color: #0d1734;
+        font-weight: bold;
+    }
+    
+    :host ::ng-deep img {
+        width: auto;
+        height: auto;
+    }
+    
+    :host ::ng-deep li {
+        margin-top: 10px;
+    }
+}
+
+ion-button{
+    --background: #202020;
+    --border-radius: 3px;
+    height: 35px;
+    font-size: 12px;
+}
+
+ion-fab-button {
+    width: 42px;
+    height: 42px;
+}
+
+.range {
+    width: 250px;
+}

@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contagens</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item color="none" lines="none">
+        <ion-select placeholder="Ordem" cancelText="Cancelar" (ionChange)="searchOrder($event)">
+          <ion-select-option value="from">A partir de</ion-select-option>
+          <ion-select-option value="previous">Anterior a</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data" (ionChange)="search($event)" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+    </ion-col>
+    <ion-col size="12">
+      <ion-item color="none" lines="none">
+        <ion-select placeholder="Local" cancelText="Cancelar" (ionChange)="searchPlace($event)">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let place of places" value="{{ place.id }}">{{ place.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <!-- Skeleton screen -->
+  <ion-list *ngIf="loading" fixed>
+    <ion-item *ngFor="let skeleton of skeletons">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2><ion-skeleton-text class="h20" animated></ion-skeleton-text></h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let count of counts; let i = index">
+      <ion-item [routerLink]="['form', count.id]">
+        <ion-avatar slot="start">
+          <ion-icon size="large" name="podium-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ count.date | date:'short'}}</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" expandable (click)="deleteConfirm(count.date, count.id, i)">
+          Excluir
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="!loading && counts.length < 1">
+      Nenhum Resultado
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="!loading" threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando ...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['form']">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,43 @@
+<ion-content>
+  <div class="main_content_div">
+    <div class="back_user">
+      <ion-icon class="user" name="person-circle-outline"></ion-icon>
+      <ion-icon name="chevron-back" class="back_icn" (click)="goToBack()"></ion-icon>
+    </div>
+    <div class="ion-text-center">
+      <ion-label class="username">{{ group?.name }}</ion-label>
+      <ion-label class="bold_lbl">Cód: {{ group?.id }}</ion-label>
+      <ion-label class="location" *ngIf="group?.phone">
+        {{ group?.phone | simpleMask:'(99) 99999-9999' }}
+      </ion-label>
+
+      <div class="box_div" *ngIf="group?.district">
+        <ion-label class="bold_lbl">{{ group?.district }}</ion-label>
+        <ion-label class="grey_lbl">Bairro</ion-label>
+      </div>
+    </div>
+  
+    <div class="content_div">
+      <ion-button color="tertiary" expand="block" [routerLink]="['/panel/groups/reports', group?.id]">
+        Relatórios
+      </ion-button>
+      <ion-button color="tertiary" expand="block" [routerLink]="['/panel/groups/members', group?.id]">
+        Membros
+      </ion-button>
+      
+      <ion-button expand="block" *ngIf="group?.phone" (click)="call(group?.phone)">
+        Ligar
+      </ion-button>
+      <ion-button expand="block" *ngIf="group?.phone" (click)="whatsapp(group?.phone)">
+        WhatsApp
+      </ion-button>
+      <ion-button expand="block" [routerLink]="['/panel/groups/form', group?.id]">
+        Editar
+      </ion-button>
+      <ion-button expand="block" color="danger" (click)="deleteConfirm()">
+        Excluir
+      </ion-button>
+
+    </div>
+
+  </div>

@@ -1,0 +1,230 @@
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="header_flex">
+      <ion-button (click)="goToBack()" size="small" fill="clear">
+        <ion-icon name="chevron-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </div>
+
+    <ion-label class="bold_lbl">Cadastrar Igreja</ion-label>
+
+    <!-- Register form -->
+    <form [formGroup]="onRegisterForm" class="list-form">
+      <ion-label class="forgot_lbl">Responsável no app</ion-label>
+      
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome" formControlName="user_name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('user_name').touched && onRegisterForm.get('user_name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Sobrenome" type="text" formControlName="user_last_name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('user_last_name').touched && onRegisterForm.get('user_last_name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Email" type="email" formControlName="user_email">
+          <ion-icon name="mail"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('user_email').touched && onRegisterForm.get('user_email').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('user_email').touched && onRegisterForm.get('user_email').hasError('email')">
+        <ion-text color="warning">
+          Email inválido
+        </ion-text>
+      </p>
+
+      <ion-row>
+        <ion-col size="2">
+          <ion-input placeholder="Código" type="tel" autocomplete="tel-country-code" formControlName="user_phone_code"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input placeholder="Telefone" type="tel" formControlName="user_phone" [simpleMask]="phoneMask" [clearIfNotMatch]="true">
+            <ion-icon name="call"></ion-icon>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Senha" type="password" formControlName="password">
+          <ion-icon name="key"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('password').touched && onRegisterForm.get('password').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Confirmar Senha" type="password" formControlName="password_confirmation">
+          <ion-icon name="key"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('password_confirmation').touched && onRegisterForm.get('password_confirmation').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('password_confirmation').touched && onRegisterForm.get('password_confirmation').hasError('fieldMatch')">
+        <ion-text color="warning">
+          Senhas não são iguais
+        </ion-text>
+      </p>
+
+      <ion-label class="forgot_lbl">Informações da Igreja</ion-label>
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome da Igreja" formControlName="church">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('church').touched && onRegisterForm.get('church').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo. É o nome que será encontrado na pesquisa.
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Abreviação (Se usado)" formControlName="short_church">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Pais</ion-label>
+        <ion-select placeholder="Pais" formControlName="country" cancelText="Cancelar" (ionChange)="changeCountry($event)">
+          <ion-select-option *ngFor="let country of countries" value="{{ country.id }}">{{ country.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Estado</ion-label>
+        <ion-select placeholder="Estado" formControlName="state" cancelText="Cancelar" (ionChange)="changeState($event)">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let state of states" value="{{ state.id }}">{{ state.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Cidade</ion-label>
+        <ion-select placeholder="Cidade" formControlName="city" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let city of cities" value="{{ city.id }}">{{ city.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Endereço" formControlName="address" autocomplete="street-address">
+          <ion-icon name="location"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size="2">
+          <ion-input placeholder="Código" type="tel" autocomplete="tel-country-code" formControlName="phone_code"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input placeholder="Telefone" type="tel" formControlName="phone" [simpleMask]="phoneMask" [clearIfNotMatch]="true">
+            <ion-icon name="call"></ion-icon>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('phone').touched && onRegisterForm.get('phone').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Email" type="email" formControlName="email">
+          <ion-icon name="mail"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('email')">
+        <ion-text color="warning">
+          Email inválido
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Link Youtube" formControlName="youtube">
+          <ion-icon name="logo-youtube"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('youtube').touched && onRegisterForm.get('youtube').hasError('pattern')">
+        <ion-text color="warning">
+          Link do youtube inválido.
+        </ion-text>
+      </p>
+
+      <p>Insira o endereço que será usado inicialmente para seu site</p>
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Domínio" formControlName="domain" (ionChange)="checkDomain($event)">
+          <ion-icon name="globe"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('domain').touched && onRegisterForm.get('domain').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo.
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('domain').touched && onRegisterForm.get('domain').hasError('pattern')">
+        <ion-text color="warning">
+          Não é permitido acentos, pontos, espaços e caracteres especiais
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="domainExists">
+        <ion-text color="warning">
+          Endereço não disponível!
+        </ion-text>
+      </p>
+
+      <div *ngIf="onRegisterForm.value['domain'] && !onRegisterForm.get('domain').hasError('pattern')">
+        <p>
+          Seu endereço inicial será <strong>{{onRegisterForm.value['domain']}}.eigrejas.com</strong>
+        </p>
+        <p>Este endereço pode ser personalizado sem o eigrejas.com depois</p>
+      </div>
+    </form>
+
+    <!-- backend errors -->
+    <ng-container *ngIf="formStatus" class="ion-padding-top">
+      <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+        <div *ngFor="let error of formStatus.errors">
+          <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+            {{ error }}
+          </ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+    <ion-label class="forgot_lbl">
+      Ao cadastrar você estará concordando com os <strong (click)="terms()">Termos de Uso</strong> e a <strong (click)="privacy()">Política de Privacidade</strong>
+    </ion-label>
+
+    <ion-progress-bar color="light" type="indeterminate" *ngIf="saving"></ion-progress-bar>
+
+    <ion-button expand="block" class="ion-padding-top" *ngIf="!saving" (click)="signUp()" [disabled]="!onRegisterForm.valid || domainExists">
+      Cadastrar
+    </ion-button>
+
+  </div>
+</ion-content>

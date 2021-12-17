@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="main_content_div">
+
+      <div class="header_flex">
+          <ion-button (click)="goToBack()" size="small" fill="clear">
+            <ion-icon name="chevron-back"></ion-icon>
+            Voltar
+          </ion-button>
+      </div>
+
+      <ion-label class="small_lbl">Trocar Senha</ion-label>
+
+      <form [formGroup]="f">
+        <ion-input type="email" placeholder="Email" formControlName="email" name="email" required>
+          <ion-icon name="mail"></ion-icon>
+        </ion-input>
+
+        <ion-progress-bar color="light" type="indeterminate" *ngIf="load"></ion-progress-bar>
+        <ion-button (click)="recovery()" expand="block">Enviar Link</ion-button>
+      </form>
+
+      <ion-label class="abs_lbl" (click)="goToRegister()">Novo por aqui? <strong>Cadastrar</strong></ion-label>
+
+  </div>
+</ion-content>

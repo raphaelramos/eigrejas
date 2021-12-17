@@ -1,0 +1,38 @@
+<ion-tabs (ionTabsDidChange)="tabChange($event)">
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <!-- <ion-icon name="triangle"></ion-icon> -->
+      <img src="assets/tabs/home.png" *ngIf="val != 'home' ">
+      <img src="assets/tabs/home_active.png" *ngIf="val == 'home' ">
+      <ion-label class="lbl" [class.active]="val == 'home' ">Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tv">
+      <!-- <ion-icon name="ellipse"></ion-icon> -->
+      <img src="assets/tabs/tv.png" *ngIf="val != 'tv' ">
+      <img src="assets/tabs/tv_active.png" *ngIf="val == 'tv' ">
+      <ion-label class="lbl" [class.active]="val == 'tv' ">Vídeos</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button>
+      <!-- <ion-icon name="square"></ion-icon> -->
+      <img src="assets/tabs/logo-white.png" style="width: 60px;">
+    </ion-tab-button>
+
+    <ion-tab-button tab="news">
+      <!-- <ion-icon name="square"></ion-icon> -->
+      <img src="assets/tabs/news.png" *ngIf="val != 'news' ">
+      <img src="assets/tabs/news_active.png" *ngIf="val == 'news' ">
+      <ion-label class="lbl" [class.active]="val == 'news' ">Notícias</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="sports">
+      <!-- <ion-icon name="square"></ion-icon> -->
+      <img src="assets/tabs/heart.png" *ngIf="val != 'sports' ">
+      <img src="assets/tabs/heart_active.png" *ngIf="val == 'sports' ">
+      <ion-label class="lbl" [class.active]="val == 'sports' ">Contribua</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

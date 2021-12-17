@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Relatórios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="12">
+      <ion-item color="none" lines="none">
+        <ion-select placeholder="Filtar Local" cancelText="Cancelar" (ionChange)="searchPlace($event)">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let place of places" value="{{ place.id }}">{{ place.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>{{ groupsName }}</p>
+        <span>{{total?.groups}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="people-outline"></ion-icon>
+        <p>Membros</p>
+        <span>{{total?.members}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="people-outline"></ion-icon>
+        <p>Membros em {{ groupName }}</p>
+        <span>{{total?.membersGroups}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="people-outline"></ion-icon>
+        <p>Membros sem {{ groupName }}</p>
+        <span>{{total?.membersNoGroups}}</span>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <p>Relatórios de {{ groupsName }}</p>
+      <ion-item color="none" lines="none">
+        <ion-datetime displayFormat="MM/YYYY" placeholder="Selecione o mês" (ionChange)="selectDate($event)" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <!-- Mouth -->
+  <ion-row *ngIf="date">
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>{{ groupsName }} que enviaram</p>
+        <span>{{totalDate?.reports}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>{{ groupsName }} não enviaram</p>
+        <span>{{(totalDate?.groups - totalDate?.reports)}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>Novos batizados</p>
+        <span>{{totalDate?.baptized}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>Membros</p>
+        <span>{{totalDate?.members}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>Convidados</p>
+        <span>{{totalDate?.guests}}</span>
+      </div>
+    </ion-col>
+    <ion-col size="6">
+      <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+        <ion-icon size="large" name="layers-outline"></ion-icon>
+        <p>Crianças</p>
+        <span>{{totalDate?.kids}}</span>
+      </div>
+    </ion-col>
+    <p>Alguns dados ainda estão sendo processados. Você verá mais informações em breve.</p>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,20 @@
+.main_content_div{
+    width: 100%;
+
+    .back_image4{
+        background-color: #25262f;
+        height: 100px;
+        width: 100%;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .bold_lbl {
+            font-family: 'semi-bold';
+            text-transform: uppercase;
+            text-shadow: 2px 2px 3px #000;
+            padding: 3px;
+        }
+    }
+}

@@ -1,0 +1,132 @@
+<ion-content>
+  <div class="main_content_div">
+    <div class="back_user">
+      <ion-icon class="user" name="person-circle-outline"></ion-icon>
+      <ion-icon name="chevron-back" class="back_icn" (click)="goToBack()"></ion-icon>
+    </div>
+    <div class="ion-text-center">
+      <ion-label class="username">{{ member?.name }}</ion-label>
+      <ion-label class="location" *ngIf="member?.phone">
+        {{ member?.phone | simpleMask:'(99) 99999-9999' }}
+      </ion-label>
+    </div>
+    <ion-button class="edit_btn" [routerLink]="['/panel/members/form', member?.id]">
+      Editar
+    </ion-button>
+
+    <div class="content_div">
+
+      <div class="info_div">
+        <div class="box_div" *ngIf="member?.birth_date">
+          <ion-label class="bold_lbl">{{ calculateAge(member?.birth_date) }}</ion-label>
+          <ion-label class="grey_lbl">Anos</ion-label>
+        </div>
+        <div class="box_div" *ngIf="member?.district">
+          <ion-label class="bold_lbl">{{ member?.district }}</ion-label>
+          <ion-label class="grey_lbl">Bairro</ion-label>
+        </div>
+      </div>
+
+      <ion-button expand="block" *ngIf="member?.phone" (click)="call(member?.phone)">
+        Ligar
+      </ion-button>
+      <ion-button expand="block" *ngIf="member?.phone" (click)="whatsapp(member?.phone)">
+        WhatsApp
+      </ion-button>
+      <ion-button expand="block" color="danger" (click)="deleteConfirm()">
+        Excluir
+      </ion-button>
+
+      <!-- Groups -->
+      <div class="ion-padding-top">
+        <ion-label class="grey_lbl ion-text-center">{{groupsName}}</ion-label>
+        <ion-list>
+          <ion-item-sliding *ngFor="let group of memberGroups; let i = index">
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-icon size="large" name="layers-outline"></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{ group.name }}</h2>
+              </ion-label>
+            </ion-item>
+      
+            <ion-item-options side="end">
+              <ion-item-option color="danger" expandable (click)="deleteRel(group.name, group.id_rel)">
+                Remover
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+          <ion-item *ngIf="!loading && memberGroups.length < 1">
+            Sem cadastro
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-button *ngIf="groups?.length == 0" size="small" color="dark" (click)="getGroups()">
+        Inserir
+      </ion-button>
+      <ion-row *ngIf="groups?.length > 0">
+        <ion-col size="7">
+          <ion-item color="none" lines="none">
+            <ion-select placeholder="Selecione" cancelText="Cancelar" (ionChange)="groupSelect($event)">
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option *ngFor="let group of groups" value="{{ group.id }}">{{ group.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-button size="small" color="dark" [disabled]="!groupSelectId" (click)="addGroup()">
+            Adicionar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <!-- Ministries -->
+      <div class="ion-padding-top">
+        <ion-label class="grey_lbl ion-text-center">Ministérios</ion-label>
+        <ion-list>
+          <ion-item-sliding *ngFor="let ministry of memberMinistries; let i = index">
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-icon size="large" name="copy-outline"></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{ ministry.name }}</h2>
+              </ion-label>
+            </ion-item>
+      
+            <ion-item-options side="end">
+              <ion-item-option color="danger" expandable (click)="deleteRel(ministry.name, ministry.id_rel)">
+                Remover
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+          <ion-item *ngIf="!loading && memberMinistries.length < 1">
+            Sem cadastro
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-button *ngIf="ministries?.length == 0" size="small" color="dark" (click)="getGroups()">
+        Inserir
+      </ion-button>
+      <ion-row *ngIf="ministries?.length > 0">
+        <ion-col size="7">
+          <ion-item color="none" lines="none">
+            <ion-select placeholder="Selecione" cancelText="Cancelar" (ionChange)="ministrySelect($event)">
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option *ngFor="let ministry of ministries" value="{{ ministry.id }}">{{ ministry.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-button size="small" color="dark" [disabled]="!ministrySelectId" (click)="addMinistry()">
+            Adicionar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+  </div>

@@ -1,0 +1,31 @@
+<ion-content fullscreen>
+  <div class="main_content_div">
+
+    <img src="assets/imgs/logo.svg" class="ion-text-center logo">
+
+    <ion-card *ngIf="msg" class="ion-text-center ion-padding">
+      <p [innerHTML]="msg"></p>
+    </ion-card>
+
+    <h5 class="ion-text-center">Pesquisar Igreja</h5>
+
+    <ion-searchbar placeholder="" color="light" debounce="500" (ionChange)="search($event)" mode="md" animated></ion-searchbar>
+
+    <ion-list lines="none">
+      <ion-item *ngFor="let church of churches" (click)="openChurch(church.global_id)">
+        <ion-avatar slot="start">
+          <ion-icon *ngIf="!church.photo" size="large" name="globe-outline"></ion-icon>
+          <ion-img *ngIf="church.photo" [src]="photo(church.photo)"></ion-img>
+        </ion-avatar>
+        <ion-label class="ion-text-wrap">
+          <ion-text>
+            <h3>{{ church.name }}</h3>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-label class="abs_lbl" *ngIf="addBtn" (click)="newChurch()">Adicionar Igreja</ion-label>
+
+  </div>
+</ion-content>

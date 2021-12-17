@@ -1,0 +1,52 @@
+:root {
+    --ion-safe-area-top: 0px;
+    --ion-safe-area-bottom: 0px;
+}
+
+.slides-md, .slides-ios {
+    --bullet-background-active: #fff;
+}
+
+ion-img {
+    max-width: 800px !important;
+    object-fit: cover;
+}
+
+.button {
+    z-index: 2;
+    position: absolute;
+    bottom: -5%;
+    width: 100%;
+    max-width: 800px;
+    height: 20%;
+    margin: auto;
+    color: white;
+    font-size: 17px;
+}
+
+.close {
+    z-index: 2;
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    max-width: 800px;
+    height: 20%;
+    padding-right: 20px;
+    color: white;
+    font-size: 23px;
+    text-align: end;
+    filter: drop-shadow( 1px 0px 0px rgba(0, 0, 0, .6));
+}
+
+.floating {  
+    animation-name: floating;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+    from { transform: translate(0,  0px); }
+    65%  { transform: translate(0, 10px); }
+    to   { transform: translate(0, -0px); }    
+}

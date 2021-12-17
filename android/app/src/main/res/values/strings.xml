@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">e-igrejas</string>
+    <string name="title_activity_main">e-igrejas</string>
+    <string name="package_name">com.r2company.eigrejas</string>
+    <string name="custom_url_scheme">com.r2company.eigrejas</string>
+    <string name="facebook_app_id">174562087980884</string>
+</resources>

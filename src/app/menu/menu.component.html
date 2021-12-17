@@ -1,0 +1,76 @@
+<ion-menu type="push" contentId="main">
+
+    <ion-content>
+        <ion-menu-toggle auto-hide="false">
+            <div class="menu_flex_div" *ngIf="!user" (click)="goToLogin()">
+                <div>
+                    <ion-icon color="medium" name="person-circle-sharp"></ion-icon>
+                </div>
+                <div class="pl-10">
+                    <ion-label class="bold_lbl">Entrar</ion-label>
+                    <ion-label class="light_lbl">para mais opções</ion-label>
+                </div>
+            </div>
+            <div class="menu_flex_div" *ngIf="user">
+                <div>
+                    <ion-icon color="medium" name="person-circle-sharp"></ion-icon>
+                </div>
+                <div class="pl-10">
+                    <ion-label class="bold_lbl">{{user.name}}</ion-label>
+                    <ion-label class="light_lbl" (click)="logout()">Sair</ion-label>
+                </div>
+            </div>
+        </ion-menu-toggle>
+  
+        <ion-list style="background: transparent;">
+
+            <ion-menu-toggle auto-hide="false" *ngIf="user && panel_status">
+                <div class="menu_flex" (click)="goToPanel()">
+                    <ion-icon color="medium" name="grid-outline"></ion-icon>
+                    <div>
+                        <ion-label class="bold_lbl">Painel</ion-label>
+                    </div>
+                </div>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle *ngFor="let item of menu" auto-hide="false">
+                <div class="menu_flex" *ngIf="item.section_id != 4 && item.section_id != 5 && item.section_id != 6" (click)="goMenu(item.section_id, item.href)">
+                    <ion-icon color="medium" name="list-outline"></ion-icon>
+                    <div>
+                        <ion-label class="bold_lbl">{{item.title}}</ion-label>
+                    </div>
+                </div>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle auto-hide="false">
+                <div class="menu_flex" (click)="goToSettings()">
+                    <ion-icon color="medium" name="cog-outline"></ion-icon>
+                    <div>
+                        <ion-label class="bold_lbl">Opções</ion-label>
+                    </div>
+                </div>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle auto-hide="false">
+                <div class="menu_flex" (click)="goToChurches()">
+                    <ion-icon color="medium" name="globe-outline"></ion-icon>
+                    <div>
+                        <ion-label class="bold_lbl">Trocar Igreja</ion-label>
+                    </div>
+                </div>
+            </ion-menu-toggle>
+
+            <ion-menu-toggle *ngIf="newVersion" auto-hide="false">
+                <div class="menu_flex" (click)="app.update()">
+                    <ion-icon color="medium" name="refresh-outline"></ion-icon>
+                    <div>
+                        <ion-label class="bold_lbl">Atualizar App</ion-label>
+                    </div>
+                </div>
+            </ion-menu-toggle>
+
+        </ion-list>
+
+    </ion-content>
+
+</ion-menu>

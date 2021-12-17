@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="spin" *ngIf="loading">
+      <ion-spinner name="crescent" color="light"></ion-spinner>
+    </div>
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of images" (click)="goToVideo(item.id)">
+          <div class="back_image2 bg_image" [ngStyle]="{'background-image': item.photo_file ? 'url('+item.photo_file+')' : 'url('+ytThumb(item.video_file)+')'}">
+            <div class="flex_div">
+              <div class="play_div">
+                <ion-label class="name">{{item.title}}</ion-label>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>

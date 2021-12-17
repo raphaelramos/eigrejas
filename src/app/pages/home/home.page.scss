@@ -1,0 +1,115 @@
+.main_content_div{
+    width: 100%;
+    padding: 10px;
+    
+    .back_image{
+        height: 120px;
+        width: 100%;
+        border-radius: 5px;
+        position: relative;
+        padding: 5px;
+        ion-label {
+            position: absolute;
+            right: 5px;
+            font-size: 14px;
+        }
+    }
+
+    .head_lbl{
+        font-family: 'medium';
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        position: relative;
+        ion-icon{
+            position: absolute;
+            right: 0;
+            font-size: 20px;
+            color: #707070;
+        }
+    }
+
+    ion-slide {
+        margin-right: 7px;
+    }
+
+    ion-card {
+        --background: none;
+    }
+
+    .back_image2{
+        background-color: #25262f;
+        height: 96px;
+        width: 100%;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .back_image3{
+        background-color: #25262f;
+        height: 80px;
+        width: 80px;
+        min-width: 80px;
+        border: 3px solid var(--ion-color-primary);
+        border-radius: 50%;
+    }
+
+    .back_image4{
+        background-color: #25262f;
+        height: 100px;
+        width: 100%;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .bold_lbl {
+            font-family: 'semi-bold';
+            text-transform: uppercase;
+            text-shadow: 2px 2px 3px #000;
+            padding: 3px;
+        }
+    }
+
+    .flex_div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        text-shadow: 2px 2px 3px #000;
+
+        .name{
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .live{
+            font-size: 12px;
+            font-family: 'medium';
+            text-align: left;
+        }
+
+        .live2{
+            font-size: 12px;
+            font-family: 'medium';
+            text-align: right;
+        }
+
+        .play_div{
+            display: flex;
+            align-items: center;
+            .play{
+                font-size: 20px;
+                margin-right: 1px;
+            }
+            .name{
+                font-size: 14px;
+                margin-top: 0px;
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button mode="md" color="light"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="main_content_div">
+
+      <div class="spin" *ngIf="loading">
+        <ion-spinner name="crescent" color="light"></ion-spinner>
+      </div>
+
+      <div class="video_div" *ngIf="!loading">
+          <!-- Direct Vídeo -->
+          <video *ngIf="video.video_type == 0" class="video_size" controls poster="{{video.photo_file}}">
+            <source [src]="video.video_file" type="video/mp4">
+          </video>
+
+          <!-- Youtube Vídeo -->
+          <iframe *ngIf="video.video_type == 1" class="video_size" [src]="youtubeUrl(video.video_file)" frameborder="0" allowfullscreen></iframe>
+
+          <!-- Vímeo Vídeo -->
+          <iframe *ngIf="video.video_type == 2" class="video_size" [src]="vimeoUrl(video.video_file)" frameborder="0" allowfullscreen></iframe>
+
+          <!-- Embed Vídeo -->
+          <div *ngIf="video.video_type == 3" class="video_size" [innerHTML]="trustHtml(video.video_file)"></div>
+      </div>
+
+      <div class="cont_div" *ngIf="!loading">
+        <div class="flex_div">
+          <div class="back_image bg_image" [ngStyle]="{'background-image': video.photo_file ? 'url('+video.photo_file+')' : 'url('+ytThumb(video.video_file)+')'}"></div>
+          <div class="content_div">
+            <ion-label class="title_lbl">{{video.title}}</ion-label>
+          </div>
+        </div>
+      </div>
+    </div>
+</ion-content>

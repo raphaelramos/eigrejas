@@ -1,0 +1,17 @@
+.main_content_div {
+    padding: 10px;
+
+    .back_image {
+        width: 100%;
+        height: 110px;
+        border-radius: 3px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 5px;
+        ion-label {
+            font-family: 'medium';
+            text-transform: uppercase;
+        }
+    }
+}

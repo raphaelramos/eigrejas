@@ -1,0 +1,45 @@
+<ion-content>
+    <div class="main_content_div">
+
+        <div class="header_flex">
+            <ion-button (click)="goToBack()" size="small" fill="clear">
+              <ion-icon name="chevron-back"></ion-icon>
+              Voltar
+            </ion-button>
+        </div>
+
+        <!-- <ion-label class="bold_lbl">Welcome Back</ion-label> -->
+        <ion-label class="small_lbl">Log in</ion-label>
+
+        <form [formGroup]="onLoginForm">
+          <ion-input type="text" placeholder="Email ou Telefone" formControlName="email">
+            <ion-icon name="mail"></ion-icon>
+          </ion-input>
+          <p ion-text class="text08" *ngIf="onLoginForm.get('email').touched && onLoginForm.get('email').hasError('required')">
+            <ion-text color="warning">
+              Preencha este campo
+            </ion-text>
+          </p>
+
+          <ion-input type="password" placeholder="Senha" formControlName="password">
+            <ion-icon name="key"></ion-icon>
+          </ion-input>
+          <p ion-text class="text08" *ngIf="onLoginForm.get('password').touched && onLoginForm.get('password').hasError('required')">
+            <ion-text color="warning">
+              Preencha este campo
+            </ion-text>
+          </p>
+
+          <ion-progress-bar color="light" type="indeterminate" *ngIf="load && !loginError"></ion-progress-bar>
+
+          <ion-button (click)="login()" [disabled]="!onLoginForm.valid" expand="block">
+            Entrar
+          </ion-button>
+        </form>
+
+        <ion-label class="forgot_lbl" (click)="goToForgot()">Esqueceu a Senha?</ion-label>
+
+        <ion-label class="abs_lbl" *ngIf="allow_register" (click)="goToRegister()">Novo por aqui? <strong>Cadastrar</strong></ion-label>
+
+    </div>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meu App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" (click)="go('https://www.youtube.com/playlist?list=PLpEuPgMO3TBbotRFS5WBiuPinOu46dVE_')">
+        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+          <ion-icon size="large" name="play-circle-outline"></ion-icon>
+          <p>Como Usar</p>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </div>
+      </ion-col>
+
+      <ion-col size="6" (click)="go('https://eigrejas.com/app/contato')">
+        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+          <ion-icon size="large" name="help-circle-outline"></ion-icon>
+          <p>Suporte</p>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </div>
+      </ion-col>
+
+      <!-- <ion-col size="6" [routerLink]="['plan']">
+        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+          <ion-icon size="large" name="card-outline"></ion-icon>
+          <p>Meu Plano</p>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </div>
+      </ion-col> -->
+
+      <ion-col size="6" [routerLink]="['church']">
+        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
+          <ion-icon size="large" name="browsers-outline"></ion-icon>
+          <p>Cadastro</p>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

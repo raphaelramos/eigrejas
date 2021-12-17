@@ -1,0 +1,49 @@
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="header_flex">
+      <ion-button (click)="goToBack()" size="small" fill="clear">
+        <ion-icon name="chevron-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </div>
+    
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Letra <ion-badge color="secondary">{{app.fontSize}}</ion-badge></ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-item color="transparent" lines="none">
+          <ion-range min="14" max="48" step="2" color="secondary" [(ngModel)]="app.fontSize" (ionChange)="updateFont()">
+            <ion-row style="font-size:18px" range-left>A</ion-row>
+            <ion-row style="font-size:38px" range-right>A</ion-row>
+          </ion-range>
+        </ion-item>
+        <div [style.font-size]="app.fontSize+2+'px'">Texto Exemplo</div>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card (click)="clearNews()">
+      <ion-card-header>
+        <ion-card-subtitle>Apagar conteúdo salvo</ion-card-subtitle>
+      </ion-card-header>
+  
+      <ion-card-content class="size-about">
+        Postagens abertas são salvos neste aparelho para ficar disponível off-line. Você pode apagar aqui.
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card (click)="r2()">
+      <ion-card-header>
+        <ion-card-subtitle>Versão</ion-card-subtitle>
+      </ion-card-header>
+  
+      <ion-card-content class="size-about">
+        e-igrejas {{app.appInfo.version}} | {{app.device.model}}<br>
+        Powered by R2 Company<br>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

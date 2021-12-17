@@ -1,0 +1,165 @@
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="header_flex">
+      <ion-button (click)="goToBack()" size="small" fill="clear">
+        <ion-icon name="chevron-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </div>
+
+    <ion-label class="bold_lbl">Cadastrar</ion-label>
+
+    <!-- Register form -->
+    <form [formGroup]="onRegisterForm" class="list-form">
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome" formControlName="name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('name').touched && onRegisterForm.get('name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Sobrenome" type="text" formControlName="last_name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('last_name').touched && onRegisterForm.get('last_name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Email" type="email" formControlName="email">
+          <ion-icon name="mail"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('email')">
+        <ion-text color="warning">
+          Email inválido
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Telefone" type="text" formControlName="phone" [simpleMask]="phoneMask" [clearIfNotMatch]="true">
+          <ion-icon name="call"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Senha" type="password" formControlName="password">
+          <ion-icon name="key"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('password').touched && onRegisterForm.get('password').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Confirmar Senha" type="password" formControlName="password_confirmation">
+          <ion-icon name="key"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('password_confirmation').touched && onRegisterForm.get('password_confirmation').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('password_confirmation').touched && onRegisterForm.get('password_confirmation').hasError('fieldMatch')">
+        <ion-text color="warning">
+          Senhas não são iguais
+        </ion-text>
+      </p>
+
+      <div *ngIf="allow_member_register">
+        <p>
+          <ion-checkbox color="primary" formControlName="member"></ion-checkbox>
+          <span (click)="checkMember()"> Cadastrar também como membro da igreja</span>
+        </p>
+      
+        <div *ngIf="onRegisterForm.get('member').value">
+          <ion-item color="none" lines="none">
+            <ion-label position="floating">Data de Nascimento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" formControlName="birth_date" cancelText="Cancelar" doneText="Confirmar">
+              <ion-icon name="calendar-clear"></ion-icon>
+            </ion-datetime>
+          </ion-item>
+    
+          <ion-item color="none" lines="none">
+            <ion-label position="floating">Data de Batismo</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" formControlName="baptism_date" cancelText="Cancelar" doneText="Confirmar">
+              <ion-icon name="calendar-clear"></ion-icon>
+            </ion-datetime>
+          </ion-item>
+
+          <ion-item color="none" lines="none">
+            <ion-label>Sexo</ion-label>
+            <ion-select formControlName="sex" cancelText="Cancelar">
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option value="1">Masculino</ion-select-option>
+              <ion-select-option value="2">Feminino</ion-select-option>
+            </ion-select>
+          </ion-item>
+    
+          <ion-item color="none" lines="none">
+            <ion-label>Estado Civil</ion-label>
+            <ion-select formControlName="marital_status" cancelText="Cancelar">
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option value="1">Solteiro</ion-select-option>
+              <ion-select-option value="2">Casado</ion-select-option>
+              <ion-select-option value="3">Outro</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item color="none" lines="none">
+            <ion-input type="text" placeholder="Bairro" formControlName="district">
+              <ion-icon name="location"></ion-icon>
+            </ion-input>
+          </ion-item>
+    
+          <ion-item color="none" lines="none">
+            <ion-input type="text" placeholder="Endereço" formControlName="address">
+              <ion-icon name="location"></ion-icon>
+            </ion-input>
+          </ion-item>
+        </div>
+      </div>
+    </form>
+
+    <!-- backend errors -->
+    <ng-container *ngIf="formStatus" class="ion-padding-top">
+      <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+        <div *ngFor="let error of formStatus.errors">
+          <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+            {{ error }}
+          </ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+    <ion-label class="forgot_lbl">
+      Ao cadastrar estou ciente das condições de tratamento dos meus dados e dou meu consentimento, quando aplicável, conforme descrito nesta <strong (click)="privacy()">Política de Privacidade</strong>
+    </ion-label>
+
+    <ion-progress-bar color="light" type="indeterminate" *ngIf="saving && !formStatus.canShowErrors()"></ion-progress-bar>
+
+    <ion-button expand="block" class="ion-padding-top" (click)="signUp()" [disabled]="!onRegisterForm.valid">
+      Cadastrar
+    </ion-button>
+
+    <ion-label class="forgot_lbl" (click)="goToLogin()">Já possui uma conta? <strong>Entrar</strong></ion-label>
+
+  </div>
+</ion-content>

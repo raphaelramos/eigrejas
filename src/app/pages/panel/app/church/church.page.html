@@ -1,0 +1,136 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro Igreja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+    <form [formGroup]="onRegisterForm" class="list-form">
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome da Igreja" formControlName="name">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('name').touched && onRegisterForm.get('name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo. É o nome que será encontrado na pesquisa.
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Abreviação (Se usado)" formControlName="short_name">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Pais</ion-label>
+        <ion-select placeholder="Pais" formControlName="country" cancelText="Cancelar" (ionChange)="changeCountry($event)">
+          <ion-select-option *ngFor="let country of countries" value="{{ country.id }}">{{ country.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Estado</ion-label>
+        <ion-select placeholder="Estado" formControlName="state" cancelText="Cancelar" (ionChange)="changeState($event)">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let state of states" value="{{ state.id }}">{{ state.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Cidade</ion-label>
+        <ion-select placeholder="Cidade" formControlName="city" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let city of cities" value="{{ city.id }}">{{ city.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Endereço" formControlName="address" autocomplete="street-address">
+          <ion-icon name="location"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size="2">
+          <ion-input placeholder="Código" type="tel" autocomplete="tel-country-code" formControlName="phone_code"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input placeholder="Telefone" type="tel" formControlName="phone" [simpleMask]="phoneMask" [clearIfNotMatch]="true">
+            <ion-icon name="call"></ion-icon>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Email" type="email" formControlName="email">
+          <ion-icon name="mail"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('email')">
+        <ion-text color="warning">
+          Email inválido
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="CNPJ" formControlName="cnpj" [simpleMask]="cnpjMask">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-label class="forgot_lbl">Informações do Presidente</ion-label>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome" formControlName="responsible_name">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('responsible_name').touched && onRegisterForm.get('responsible_name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="CPF" formControlName="responsible_cpf" [simpleMask]="cpfMask">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="onRegisterForm.get('responsible_cpf').touched && onRegisterForm.get('responsible_cpf').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Telefone" formControlName="responsible_phone" [simpleMask]="phoneMask" [clearIfNotMatch]="true">
+          <ion-icon name="business"></ion-icon>
+        </ion-input>
+      </ion-item>
+    </form>
+
+    <!-- backend errors -->
+    <ng-container *ngIf="formStatus" class="ion-padding-top">
+      <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+        <div *ngFor="let error of formStatus.errors">
+          <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+            {{ error }}
+          </ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+    <ion-progress-bar color="light" type="indeterminate" *ngIf="saving && !formStatus.canShowErrors()"></ion-progress-bar>
+
+    <ion-button expand="block" class="ion-padding-top" *ngIf="!saving" (click)="save()" [disabled]="!onRegisterForm.valid">
+      Salvar
+    </ion-button>
+
+  </div>
+</ion-content>

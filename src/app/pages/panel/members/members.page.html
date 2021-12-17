@@ -1,0 +1,69 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Membros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="8">
+      <ion-searchbar placeholder="" debounce="500" (ionChange)="search($event)" animated></ion-searchbar>
+    </ion-col>
+    <ion-col>
+      <ion-item color="none" lines="none">
+        <ion-select placeholder="Local" cancelText="Cancelar" (ionChange)="searchPlace($event)">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let place of places" value="{{ place.id }}">{{ place.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <!-- Skeleton screen -->
+  <ion-list *ngIf="loading" fixed>
+    <ion-item *ngFor="let skeleton of skeletons">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2><ion-skeleton-text class="h20" animated></ion-skeleton-text></h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let member of members; let i = index">
+      <ion-item [routerLink]="['info', member.id]">
+        <ion-avatar slot="start">
+          <ion-icon size="large" name="person-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ member.name }}</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" expandable (click)="deleteConfirm(member.name, member.id, i)">
+          Excluir
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="!loading && members.length < 1">
+      Nenhum Resultado
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="!loading" threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando ...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['form']">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

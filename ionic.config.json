@@ -1,0 +1,8 @@
+{
+  "name": "eigrejas",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

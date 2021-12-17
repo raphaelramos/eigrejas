@@ -1,0 +1,145 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro de Decisão</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+    <form [formGroup]="onRegisterForm" class="list-form">      
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome" formControlName="name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('name').touched && onRegisterForm.get('name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item no-padding color="none" lines="none">
+        <ion-input placeholder="Telefone" type="text" formControlName="phone" [simpleMask]="phoneMask" [clearIfNotMatch]="true">
+          <ion-icon name="call"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Idade" formControlName="age">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label position="floating">Data de Decisão</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" formControlName="decision_date" cancelText="Cancelar" doneText="Confirmar">
+          <ion-icon name="calendar-clear"></ion-icon>
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Sexo</ion-label>
+        <ion-select formControlName="sex" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option value="1">Masculino</ion-select-option>
+          <ion-select-option value="2">Feminino</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Estado Civil</ion-label>
+        <ion-select formControlName="marital_status" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option value="1">Solteiro</ion-select-option>
+          <ion-select-option value="2">Casado</ion-select-option>
+          <ion-select-option value="3">Outro</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Local</ion-label>
+        <ion-select formControlName="place_id" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let place of places" value="{{ place.id }}">{{ place.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Responsável</ion-label>
+        <ion-select formControlName="member_id" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let member of members" value="{{ member.id }}">{{ member.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>{{ groupName }}</ion-label>
+        <ion-select formControlName="group_id" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let group of groups" value="{{ group.id }}">{{ group.name }} ({{ group.id }})</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-label class="forgot_lbl">Endereço</ion-label>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Pais</ion-label>
+        <ion-select placeholder="Pais" formControlName="country" cancelText="Cancelar" (ionChange)="changeCountry($event)">
+          <ion-select-option *ngFor="let country of countries" value="{{ country.id }}">{{ country.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Estado</ion-label>
+        <ion-select placeholder="Estado" formControlName="state" cancelText="Cancelar" (ionChange)="changeState($event)">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let state of states" value="{{ state.id }}">{{ state.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-label>Cidade</ion-label>
+        <ion-select placeholder="Cidade" formControlName="city" cancelText="Cancelar">
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option *ngFor="let city of cities" value="{{ city.id }}">{{ city.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Bairro" formControlName="district">
+          <ion-icon name="location"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Endereço" formControlName="address">
+          <ion-icon name="location"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item color="none" lines="none">
+        <ion-textarea type="text" placeholder="Detalhes" formControlName="note"></ion-textarea>
+      </ion-item>
+    </form>
+
+    <!-- backend errors -->
+    <ng-container *ngIf="formStatus" class="ion-padding-top">
+      <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+        <div *ngFor="let error of formStatus.errors">
+          <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+            {{ error }}
+          </ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+    <ion-progress-bar color="light" type="indeterminate" *ngIf="saving && !formStatus.canShowErrors()"></ion-progress-bar>
+
+    <ion-button expand="block" class="ion-padding-top" (click)="save()" [disabled]="!onRegisterForm.valid">
+      Salvar
+    </ion-button>
+  </div>
+</ion-content>

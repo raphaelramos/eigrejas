@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro Ministério</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+    <form [formGroup]="onRegisterForm" class="list-form">      
+      <ion-item color="none" lines="none">
+        <ion-input type="text" placeholder="Nome" formControlName="name">
+          <ion-icon name="person"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="onRegisterForm.get('name').touched && onRegisterForm.get('name').hasError('required')">
+        <ion-text color="warning">
+          Preencha este campo
+        </ion-text>
+      </p>
+
+      <ion-item color="none" lines="none">
+        <ion-textarea type="text" placeholder="Informações" formControlName="note"></ion-textarea>
+      </ion-item>
+    </form>
+
+    <!-- backend errors -->
+    <ng-container *ngIf="formStatus" class="ion-padding-top">
+      <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+        <div *ngFor="let error of formStatus.errors">
+          <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+            {{ error }}
+          </ion-text>
+        </div>
+      </div>
+    </ng-container>
+
+    <ion-progress-bar color="light" type="indeterminate" *ngIf="saving && !formStatus.canShowErrors()"></ion-progress-bar>
+
+    <ion-button expand="block" class="ion-padding-top" (click)="save()" [disabled]="!onRegisterForm.valid">
+      Salvar
+    </ion-button>
+  </div>
+</ion-content>

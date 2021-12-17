@@ -1,0 +1,39 @@
+<ion-content>
+  <div class="main_content_div">
+
+    <div class="header_flex">
+      <ion-button (click)="goToBack()" size="small" fill="clear">
+        <ion-icon name="chevron-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </div>
+
+    <ion-label class="bold_lbl">Cadastrar Igreja</ion-label>
+
+    <ion-label class="forgot_lbl">
+      Apenas o responsável oficial pela comunicação da igreja pode fazer o cadastro dela no 
+      <span class="nowrap">e-igrejas.</span>
+    </ion-label>
+
+    <ion-label class="forgot_lbl ion-padding">
+      Após o cadastro você entrará no período de 15 dias gratuito.
+    </ion-label>
+
+    <ion-button expand="block" color="tertiary" (click)="signUp()">
+      Cadastrar
+    </ion-button>
+
+    <ion-button expand="block" (click)="plans()">
+      Preço
+    </ion-button>
+
+    <ion-button expand="block" (click)="whatsapp()">
+      Contato pelo WhatsApp
+    </ion-button>
+
+    <ion-button expand="block" (click)="info()">
+      Saiba Mais
+    </ion-button>
+
+  </div>
+</ion-content>

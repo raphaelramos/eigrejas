@@ -1,0 +1,44 @@
+.main_content_div {
+    padding: 20px;
+
+    ion-label {
+        display: block;
+    }
+
+    ion-button {
+        --border-radius: 3px !important;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        --background: #1f80e0;
+        display: flex;
+        align-items: center;
+    }
+
+    
+    .mobile_btn {
+        border-bottom: 1px solid #1f80e0;
+        padding-bottom: 5px;
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+
+        ion-label {
+            color: #707070;
+        }
+
+        ion-input {
+            --padding-start: 8px;
+        }
+    }
+
+    .small_lbl {
+        font-size: 13px;
+        color: #707070;
+        text-align: center;
+        line-height: 24px;
+
+        span {
+            color: #1f80e0;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<ion-content>
+    <div class="main_content_div">
+
+        <div class="abs_div">
+            <div class="input_div">
+              <ion-input type="text" placeholder="Type your location"></ion-input>
+              <ion-icon name="locate-outline"></ion-icon>
+            </div>
+
+            <ion-button expand="block" shape="round" class="gredient_btn" (click)="goToTabs()">
+                Continue
+            </ion-button>
+        </div>
+        
+        <div #map id="map" class="map"></div>
+
+    </div>
+</ion-content>

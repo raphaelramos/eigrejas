@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar>
+    <ion-button (click)="goBack()" fill="clear" size="small" slot="start">
+        <ion-icon name="chevron-back" style="font-size: 24px;"></ion-icon>
+    </ion-button>
+      <ion-title>Upload Document</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="main_content_div">
+        <ion-label class="simp_lbl">Document Name</ion-label>
+        <ion-input type="text" placeholder="Enter Doc Name"></ion-input>
+
+        <ion-label class="simp_lbl">UploadDocument</ion-label>
+        <div class="upload_box">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <ion-label>Upload Here</ion-label>
+        </div>
+
+        <ion-button expand="block" shape="round" (click)="dismiss()">
+            Upload
+        </ion-button>
+    </div>
+</ion-content>

@@ -1,0 +1,84 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Planos e Valores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+    <div *ngIf="!planInfo">
+      <ion-label class="forgot_lbl">Vamos encontrar o melhor plano para você</ion-label>
+      <form [formGroup]="onRegisterForm" class="list-form">
+        <ion-item color="none" lines="none">
+          <ion-input type="text" placeholder="Nome da Igreja" formControlName="name">
+            <ion-icon name="business"></ion-icon>
+          </ion-input>
+        </ion-item>
+        <p ion-text class="text08" *ngIf="onRegisterForm.get('name').touched && onRegisterForm.get('name').hasError('required')">
+          <ion-text color="warning">
+            Preencha este campo
+          </ion-text>
+        </p>
+
+        <ion-item color="none" lines="none">
+          <ion-input type="number" placeholder="Quantidade de Membros" formControlName="members">
+            <ion-icon name="person"></ion-icon>
+          </ion-input>
+        </ion-item>
+        <p ion-text class="text08" *ngIf="onRegisterForm.get('members').touched && onRegisterForm.get('members').hasError('required')">
+          <ion-text color="warning">
+            Preencha este campo
+          </ion-text>
+        </p>
+      </form>
+
+      <!-- backend errors -->
+      <ng-container *ngIf="formStatus" class="ion-padding-top">
+        <div *ngIf="formStatus.canShowErrors()" class="alert alert-danger" role="alert">
+          <div *ngFor="let error of formStatus.errors">
+            <ion-text color="warning" *ngIf="error != formStatus.textInvalid">
+              {{ error }}
+            </ion-text>
+          </div>
+        </div>
+      </ng-container>
+
+      <ion-progress-bar color="light" type="indeterminate" *ngIf="saving && formStatus.canShowErrors()"></ion-progress-bar>
+
+      <div *ngIf="onRegisterForm.get('members').value >= 3000">
+        <ion-label class="forgot_lbl">Acima de 3.000 membros pedimos que entre em contato para orçamento</ion-label>
+        <ion-button expand="block" (click)="contact()">
+          Fale Conosco
+        </ion-button>
+      </div>
+
+      <div *ngIf="onRegisterForm.get('members').value < 3000">
+        <ion-button expand="block" class="ion-padding-top" (click)="save()" [disabled]="!onRegisterForm.valid">
+        Continuar
+      </ion-button>
+      </div>
+      
+    </div>
+
+    <!-- plan info -->
+    <div *ngIf="planInfo">
+      <strong>{{ onRegisterForm.get('name').value }}</strong>
+      <p>{{ plan?.name }}</p>
+      <p>Descrição: {{ plan?.description }}</p>
+      <p>Valor: R${{ plan?.price }} Mensais</p>
+
+      <ion-label class="forgot_lbl">Teste grátis por 15 dias</ion-label>
+
+      <ion-button expand="block" color="tertiary" [routerLink]="['/new-church/']">
+        Cadastrar
+      </ion-button>
+
+      <ion-button expand="block" (click)="contact()">
+        Fale Conosco
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

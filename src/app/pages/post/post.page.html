@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{news?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main_content_div">
+
+    <ion-card *ngIf="(errorMessage || !isInternet) && !offlineNews" class="ion-text-center">
+      <h4 *ngIf="errorMessage && isInternet">Houve um erro :/</h4>
+      <h4 *ngIf="!isInternet">Você está sem internet! O conteúdo não foi aberto on-line.</h4>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-button col-4 icon-left color="primary" (click)="goToBack()">
+          <ion-icon name="chevron-back"></ion-icon>
+          Voltar
+        </ion-button>
+      </ion-row>
+    </ion-card>
+
+    <div class="spin" *ngIf="loading">
+      <ion-spinner name="crescent" color="light"></ion-spinner>
+    </div>
+
+    <!-- text -->
+    <div class="bg-text padding-text" *ngIf="!loading && news?.details">
+      <div [style.font-size]="app.fontSize+'px'" [innerHTML]="trustHtml(news?.details)" routeTransformer></div>
+    </div>
+  </div>
+
+  <ion-grid fixed *ngIf="!loading">
+    <ion-row>
+      <ion-col size="10">
+        <!-- share button -->
+        <ion-button expand="block" size="small" *ngIf="!errorMessage" (click)="share(news.href)">
+          <ion-icon slot="start" name="arrow-redo-sharp"></ion-icon>
+          Compartilhar
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <!-- Font button -->
+        <ion-fab>
+          <ion-fab-button color="dark">
+            A
+          </ion-fab-button>
+          <ion-fab-list side="start">
+            <ion-item class="range">
+              <ion-range min="14" max="48" step="2" color="secondary" [(ngModel)]="app.fontSize" (ionChange)="update()">
+                <ion-row style="font-size:18px" range-left>A</ion-row>
+                <ion-row style="font-size:38px" range-right>A</ion-row>
+              </ion-range>
+            </ion-item>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
