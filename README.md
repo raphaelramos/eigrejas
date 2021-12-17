@@ -1,4 +1,4 @@
-# SHALOMAPP #
+# e-igrejas app #
 
 ### Instalação ###
  - Necessário estar instalado NodeJS, Ionic CLI, Cordova e Android SDK.
@@ -9,7 +9,7 @@
  - Plugins https://ionicframework.com/docs/native/overview
  
 ### Direitos ###
- - O código fonte deste software é da R2 Company.
+ - O código fonte deste software é de Raphael Ramos.
 
  ### Commands ###
 
