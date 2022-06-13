@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 import { extractErrorMessagesFromErrorResponse } from '../../../../shared/errorResponse';
 import { FormStatus } from '../../../../shared/formStatus';
@@ -25,6 +26,9 @@ export class MembersFormPage implements OnInit {
   phoneMask = '(99) 99999-9999';
   places = [];
   roles = [];
+  dateValue: string;
+  dateValueBaptism: string;
+  today = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -89,6 +93,10 @@ export class MembersFormPage implements OnInit {
       'group_id': [''],
       'profile_photo': ['']
     });
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'dd/MM/yyyy H:mm');
   }
 
   save() {

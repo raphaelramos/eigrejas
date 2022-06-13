@@ -34,7 +34,7 @@ export class ChurchPage implements OnInit {
     this.menuCtrl.enable(false);
 
     // church inital
-    this.app.church
+    this.app.church$
     .subscribe(res => {
       if (res) {
         this.initalDomain = res;

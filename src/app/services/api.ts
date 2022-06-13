@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Platform, AlertController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 
-import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLitePorter } from '@awesome-cordova-plugins/sqlite-porter/ngx';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 
 import { App, AppInfo } from '@capacitor/app';
 import { AppLauncher } from '@capacitor/app-launcher';
@@ -17,7 +17,7 @@ import { Share } from '@capacitor/share';
 import { Storage } from '@capacitor/storage';
 import { Toast } from '@capacitor/toast';
 import { KeepAwake } from '@capacitor-community/keep-awake';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 import { User } from '../models/user';
 import { info } from '../models/infoChurch';
@@ -34,20 +34,20 @@ export class ApiProvider {
     public GOOGLE_API = 'AIzaSyCSd9JxhulGxu7djQv7C2-p2nO-lzVV_bY';
     private database: SQLiteObject;
     public appInfo: AppInfo;
-    private dbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public newVersion: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public logo: BehaviorSubject<string> = new BehaviorSubject(null);
-    public church: BehaviorSubject<string> = new BehaviorSubject(null);
-    public names: BehaviorSubject<any> = new BehaviorSubject({});
-    public infoChurch: BehaviorSubject<info> = new BehaviorSubject(null);
+    private dbReady$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public newVersion$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public logo$: BehaviorSubject<string> = new BehaviorSubject(null);
+    public church$: BehaviorSubject<string> = new BehaviorSubject(null);
+    public names$: BehaviorSubject<any> = new BehaviorSubject({});
+    public infoChurch$: BehaviorSubject<info> = new BehaviorSubject(null);
     public menu = [];
     public device: DeviceInfo;
     public fontSize: number = 20;
     public language: string;
     public networkStatus = true;
-    public news = new BehaviorSubject([]);
+    public news$ = new BehaviorSubject([]);
     public token = null;
-    public userData: BehaviorSubject<User> = new BehaviorSubject(null);
+    public userData$: BehaviorSubject<User> = new BehaviorSubject(null);
 
     constructor(
         public http: HttpClient,
@@ -85,7 +85,7 @@ export class ApiProvider {
     }
 
     whatsapp(number) {
-        this.infoChurch.subscribe(res => {
+        this.infoChurch$.subscribe(res => {
             const phone_code = res.phone_code;
             if (this.platform.is("capacitor")) {
                 return window.open(`whatsapp://send?phone=${phone_code}${number}`, '_system');
@@ -137,7 +137,7 @@ export class ApiProvider {
     getSettingChurch = async () => {
         const { value } = await Storage.get({ key: 'church' });
         if (value) {
-            this.church.next(value);
+            this.church$.next(value);
             this.churchSettings();
         }
     }
@@ -145,7 +145,7 @@ export class ApiProvider {
     getSettingUser = async () => {
         const { value } =  await Storage.get({ key: 'user' });
         if (value) {
-            this.userData.next(JSON.parse(value));
+            this.userData$.next(JSON.parse(value));
         }
     }
 
@@ -171,7 +171,7 @@ export class ApiProvider {
     }
 
     storeChurch = async (id) => {
-        this.church.next(id);
+        this.church$.next(id);
         await Storage.set({
             key: 'church',
             value: id,
@@ -179,7 +179,7 @@ export class ApiProvider {
     }
 
     updateChurch = async (id) => {
-        this.church.next(id);
+        this.church$.next(id);
         await Storage.set({
             key: 'church',
             value: id,
@@ -188,9 +188,9 @@ export class ApiProvider {
     }
 
     removeChurch = async () => {
-        this.infoChurch.next(null);
-        this.logo.next(null);
-        this.userData.next(null);
+        this.infoChurch$.next(null);
+        this.logo$.next(null);
+        this.userData$.next(null);
         await Storage.remove({ key: 'church' });
     }
 
@@ -266,18 +266,18 @@ export class ApiProvider {
                 phone_code: res.details.phone_code,
                 status: res.status.original.details
             };
-            this.infoChurch.next(info);
+            this.infoChurch$.next(info);
             // add logo
-            this.logo.next(res.details.logo);
+            this.logo$.next(res.details.logo);
             // add groups name
-            this.names.next({group: res.details.group_name, groups: res.details.groups_name});
+            this.names$.next({group: res.details.group_name, groups: res.details.groups_name});
             // add menu
             this.menu = res.app_menu.original.links;
             // check church enable
             this.churchEnable(res.status.original.details);
             // check new version app
             if (this.platform.is("capacitor")) {
-                this.newVersion.next(this.isNewerVersion(res.last_version));
+                this.newVersion$.next(this.isNewerVersion(res.last_version));
             }
         }, error => {});
     }
@@ -304,7 +304,7 @@ export class ApiProvider {
         this.sqlitePorter.importSqlToDb(this.database, sql)
         .then(_ => {
             console.log('create db');
-            this.dbReady.next(true);
+            this.dbReady$.next(true);
         })
         .catch(e => console.error(e));
     }
@@ -377,20 +377,5 @@ export class ApiProvider {
         else if (this.platform.is('ios')) {
             this.openUrlApp(`itms-apps://itunes.apple.com/app/${this.idApple}`);
         }
-    }
-
-    getBible() {
-        let version = 'pt_acf';
-        return this.http.get<any>(`../assets/bible/${version}.json`);
-    }
-
-    async error(data) {
-        const alert = await this.alertController.create({
-          header: 'Erro',
-          message: data,
-          buttons: ['OK']
-        });
-    
-        await alert.present();
     }
 }

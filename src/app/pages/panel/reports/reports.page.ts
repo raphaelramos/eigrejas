@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { format, parseISO } from 'date-fns';
 
 import { ApiProvider } from 'src/app/services/api';
 
@@ -21,6 +22,7 @@ export class ReportsPage implements OnInit {
   places = [];
   total: Report;
   totalDate: Report;
+  dateValue: string;
 
   constructor(
     public app: ApiProvider,
@@ -29,7 +31,7 @@ export class ReportsPage implements OnInit {
   ) { }
 
    ngOnInit() {
-    this.app.names
+    this.app.names$
     .subscribe(res => {
       this.groupsName = res.groups;
       this.groupName = res.group;
@@ -61,12 +63,16 @@ export class ReportsPage implements OnInit {
     this.load();
   }
 
-  selectDate(text) {
+  search(text) {
     const date = new Date(text.srcElement.value);
     this.date = String(date.getFullYear() + '-' + (date.getMonth()+1) + '-01');
     this.reportService.getDate(this.date, this.filters()).subscribe(res => {
       this.totalDate = res;
     }, error => {});
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'MM/yyyy');
   }
 
 }

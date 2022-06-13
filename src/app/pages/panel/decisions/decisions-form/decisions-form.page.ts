@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 import { extractErrorMessagesFromErrorResponse } from '../../../../shared/errorResponse';
 import { FormStatus } from '../../../../shared/formStatus';
@@ -33,6 +34,8 @@ export class DecisionsFormPage implements OnInit {
   countries = [];
   states = [];
   cities = [];
+  dateValue: string;
+  today = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,7 +57,7 @@ export class DecisionsFormPage implements OnInit {
     });
 
     // set group name
-    this.app.names
+    this.app.names$
     .subscribe(res => {
       this.groupName = res.group;
     });
@@ -132,6 +135,10 @@ export class DecisionsFormPage implements OnInit {
         this.cities = res;
       });
     }
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'dd/MM/yyyy H:mm');
   }
 
   save() {

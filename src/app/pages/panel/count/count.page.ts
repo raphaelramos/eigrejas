@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 import { PanelService } from 'src/app/services/panel.service';
 import { DeleteService } from 'src/app/services/delete.service';
@@ -22,6 +23,8 @@ export class CountPage implements OnInit {
   order = 'from';
   counts = [];
   places = [];
+  dateValue: string;
+  today = new Date();
 
   skeletons = [0, 0, 0, 0, 0, 0, 0, 0]; //qtd loading
 
@@ -57,7 +60,7 @@ export class CountPage implements OnInit {
     this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe(res => {
       this.counts = [...this.counts, ...res];
 
-      if (res.lenght < this.results) {
+      if (res.length < this.results) {
         event.target.disabled = true;
       }
       event.target.complete();
@@ -69,6 +72,10 @@ export class CountPage implements OnInit {
       'place_id': this.placeId,
       'order': this.order
     };
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'dd/MM/yyyy');
   }
 
   search(text) {

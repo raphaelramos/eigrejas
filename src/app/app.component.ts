@@ -29,16 +29,15 @@ export class AppComponent {
       await StatusBar.setStyle({ style: Style.Light });
     }
     changeStatusBar;
-    SplashScreen.hide();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 500);
     this.deepLink();
-
-    this.platform.ready().then(() => {
-      this.initPush();
-    });
+    this.initPush();
   }
 
   church() {
-    return this.app.church;
+    return this.app.church$;
   }
 
   initPush() {

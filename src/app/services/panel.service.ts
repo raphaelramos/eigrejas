@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { take } from 'rxjs/Operators';
 
 import { ApiProvider } from './api';
 
@@ -24,30 +25,37 @@ export class PanelService {
       });
     }
 
-    return this.http.get(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}/${page}/${results}/${search}`, { headers });
+    return this.http.get(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}/${page}/${results}/${search}`, { headers })
+      .pipe(take(1));
   }
 
   get(model, id): any {
-    return this.http.get(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}/${id}`);
+    return this.http.get(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}/${id}`)
+      .pipe(take(1));
   }
 
   post(model, values): any {
-    return this.http.post(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}`, values);
+    return this.http.post(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}`, values)
+      .pipe(take(1));
   }
 
   delete(model, id): any {
-    return this.http.delete(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}/${id}`);
+    return this.http.delete(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}/${id}`)
+      .pipe(take(1));
   }
 
   getFilters(filters): any {
-    return this.http.get(`${this.app.BASE_URL}/${this.PANEL_URL}/filters/${filters}`);
+    return this.http.get(`${this.app.BASE_URL}/${this.PANEL_URL}/filters/${filters}`)
+      .pipe(take(1));
   }
 
   postStatus(model, value): any {
-    return this.http.post(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}-status`, value);
+    return this.http.post(`${this.app.BASE_URL}/${this.PANEL_URL}/${model}-status`, value)
+      .pipe(take(1));
   }
 
   putMemberRel(id_member, id_rel, type): any {
-    return this.http.put(`${this.app.BASE_URL}/${this.PANEL_URL}/members-relationships/${id_member}/${id_rel}/${type}`, null);
+    return this.http.put(`${this.app.BASE_URL}/${this.PANEL_URL}/members-relationships/${id_member}/${id_rel}/${type}`, null)
+      .pipe(take(1));
   }
 }

@@ -10,9 +10,22 @@
 <ion-content>
   <div class="main_content_div">
     <form [formGroup]="onRegisterForm" class="list-form">
-      <ion-item color="none" lines="none">
-        <ion-label position="floating">Data/Hora Início Reunião</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY H:mm" formControlName="date" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input">
+        <ion-label>Data/Hora Início Reunião</ion-label>
+        <ion-text slot="end">{{ dateValue }}</ion-text>
+        <ion-popover trigger="open-date-input" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetime
+              (ionChange)="dateValue = formatDate(popoverDatetime.value)"
+              displayFormat="DD/MM/YYYY H:mm"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+              [max]="today | date: 'yyyy-MM-dd'"
+              formControlName="date"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
       <p ion-text class="text08" *ngIf="onRegisterForm.get('date').touched && onRegisterForm.get('date').hasError('required')">
         <ion-text color="warning">

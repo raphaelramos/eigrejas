@@ -27,11 +27,22 @@
         </ion-input>
       </ion-item>
 
-      <ion-item color="none" lines="none">
-        <ion-label position="floating">Data de Abertura</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" formControlName="opening_date" cancelText="Cancelar" doneText="Confirmar">
-          <ion-icon name="calendar-clear"></ion-icon>
-        </ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input-opening">
+        <ion-label>Data de Abertura</ion-label>
+        <ion-text slot="end">{{ dateValue }}</ion-text>
+        <ion-popover trigger="open-date-input-opening" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetime
+              presentation="date"
+              (ionChange)="dateValue = formatDate(popoverDatetime.value)"
+              displayFormat="DD/MM/YYYY"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+              formControlName="opening_date"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
 
       <ion-item color="none" lines="none">
@@ -42,11 +53,22 @@
         </ion-select>
       </ion-item>
 
-      <ion-item color="none" lines="none">
-        <ion-label position="floating">Horário</ion-label>
-        <ion-datetime displayFormat="HH:mm" formControlName="schedule" cancelText="Cancelar" doneText="Confirmar">
-          <ion-icon name="calendar-clear"></ion-icon>
-        </ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input-schedule">
+        <ion-label>Horário</ion-label>
+        <ion-text slot="end">{{ dateValueShedule }}</ion-text>
+        <ion-popover trigger="open-date-input-schedule" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetimeSchedule
+              presentation="time"
+              (ionChange)="dateValueShedule = formatDateTime(popoverDatetimeSchedule.value)"
+              displayFormat="HH:mm"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+              formControlName="schedule"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
 
       <ion-item color="none" lines="none">

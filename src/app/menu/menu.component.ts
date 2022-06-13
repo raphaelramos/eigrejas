@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
   menu = [];
   user: User;
   church: string;
-  newVersion: boolean;
+  newVersion$: boolean;
   panel_status = false;
 
   constructor(
@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     // set user
-    this.app.userData
+    this.app.userData$
     .subscribe(res => {
       if (res) {
         this.panel_status = !!res.permission.panel_status;
@@ -37,9 +37,9 @@ export class MenuComponent implements OnInit {
     });
   
     // check new version app
-    this.app.newVersion
+    this.app.newVersion$
     .subscribe(res => {
-      this.newVersion = res;
+      this.newVersion$ = res;
     });
   }
 

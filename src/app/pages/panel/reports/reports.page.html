@@ -46,8 +46,21 @@
   <ion-row>
     <ion-col>
       <p>Relatórios de {{ groupsName }}</p>
-      <ion-item color="none" lines="none">
-        <ion-datetime displayFormat="MM/YYYY" placeholder="Selecione o mês" (ionChange)="selectDate($event)" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input">
+        <ion-label>Selecione o mês</ion-label>
+        <ion-text slot="end">{{ dateValue }}</ion-text>
+        <ion-popover trigger="open-date-input" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetime
+              presentation="date"
+              (ionChange)="dateValue = formatDate(popoverDatetime.value); search($event)"
+              displayFormat="MM/yyyy"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -96,6 +109,5 @@
         <span>{{totalDate?.kids}}</span>
       </div>
     </ion-col>
-    <p>Alguns dados ainda estão sendo processados. Você verá mais informações em breve.</p>
   </ion-row>
 </ion-content>

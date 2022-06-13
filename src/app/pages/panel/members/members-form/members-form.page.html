@@ -38,18 +38,42 @@
         </ion-input>
       </ion-item>
 
-      <ion-item color="none" lines="none">
-        <ion-label position="floating">Data de Nascimento</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" formControlName="birth_date" cancelText="Cancelar" doneText="Confirmar">
-          <ion-icon name="calendar-clear"></ion-icon>
-        </ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input-birth">
+        <ion-label>Data de Nascimento</ion-label>
+        <ion-text slot="end">{{ dateValue }}</ion-text>
+        <ion-popover trigger="open-date-input-birth" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetimeBirth
+              presentation="date"
+              (ionChange)="dateValue = formatDate(popoverDatetimeBirth.value)"
+              displayFormat="DD/MM/YYYY"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+              [max]="today | date: 'yyyy-MM-dd'"
+              formControlName="birth_date"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
 
-      <ion-item color="none" lines="none">
-        <ion-label position="floating">Data de Batismo</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" formControlName="baptism_date" cancelText="Cancelar" doneText="Confirmar">
-          <ion-icon name="calendar-clear"></ion-icon>
-        </ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input-baptism">
+        <ion-label>Data de Batismo</ion-label>
+        <ion-text slot="end">{{ dateValueBaptism }}</ion-text>
+        <ion-popover trigger="open-date-input-baptism" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetimeBaptism
+              presentation="date"
+              (ionChange)="dateValueBaptism = formatDate(popoverDatetimeBaptism.value)"
+              displayFormat="DD/MM/YYYY"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+              [max]="today | date: 'yyyy-MM-dd'"
+              formControlName="baptism_date"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
       </ion-item>
 
       <ion-item *ngIf="!groupId" color="none" lines="none">

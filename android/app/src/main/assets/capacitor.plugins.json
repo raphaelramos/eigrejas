@@ -28,6 +28,10 @@
 		"classpath": "com.capacitorjs.plugins.device.DevicePlugin"
 	},
 	{
+		"pkg": "@capacitor/geolocation",
+		"classpath": "com.capacitorjs.plugins.geolocation.GeolocationPlugin"
+	},
+	{
 		"pkg": "@capacitor/haptics",
 		"classpath": "com.capacitorjs.plugins.haptics.HapticsPlugin"
 	},
@@ -58,5 +62,9 @@
 	{
 		"pkg": "@capacitor/toast",
 		"classpath": "com.capacitorjs.plugins.toast.ToastPlugin"
+	},
+	{
+		"pkg": "@robingenz/capacitor-android-dark-mode-support",
+		"classpath": "dev.robingenz.capacitor.androiddarkmodesupport.AndroidDarkModeSupportPlugin"
 	}
 ]

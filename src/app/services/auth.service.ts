@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { take } from 'rxjs/Operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
@@ -47,21 +48,24 @@ export class AuthService {
 
   register(credentials: { name: String, last_name: String, email: String, phone: String, password: String, password_confirmation: String }) {
     return this.http.post(this.BASE_URL + '/api/v1/user', credentials)
+      .pipe(take(1));
   }
 
   recovery(credentials: { email: string }) {
-    return this.http.post<any>(this.BASE_URL + '/api/v1/auth/recovery', credentials);
+    return this.http.post<any>(this.BASE_URL + '/api/v1/auth/recovery', credentials)
+      .pipe(take(1));
   }
 
   logout() {
     let credentials: { };
-    this.http.post(this.BASE_URL + '/api/v1/auth/logout', credentials);
+    this.http.post(this.BASE_URL + '/api/v1/auth/logout', credentials)
+      .pipe(take(1));
     
     Storage.remove({ key: 'token' });
     Storage.remove({ key: 'user' });
 
     this.app.token = null;
-    this.app.userData.next(null);
+    this.app.userData$.next(null);
 
     this.alertService.presentToast("Você saiu");
 
@@ -77,6 +81,7 @@ export class AuthService {
       headers: new HttpHeaders(headerDict), 
     };
     
-    return this.http.get<User>(this.BASE_URL + '/api/v1/auth/me', requestOptions);
+    return this.http.get<User>(this.BASE_URL + '/api/v1/auth/me', requestOptions)
+      .pipe(take(1));
   }
 }

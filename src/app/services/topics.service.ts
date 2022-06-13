@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { retry } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { ApiProvider } from './api';
 
@@ -22,27 +22,33 @@ export class TopicsService {
   }
 
   getHome(): any {
-    return this.http.get( `${this.app.BASE_URL}/api/v1/home/${this.lang()}`).pipe(retry(2));
+    return this.http.get( `${this.app.BASE_URL}/api/v1/home/${this.lang()}`)
+      .pipe(take(1));
   }
 
   getTopics(topic, page = 1, count = 12): any {
-    return this.http.get( `${this.app.BASE_URL}/api/v1/topics/${topic}/page/${page}/count/${count}/${this.lang()}`);
+    return this.http.get( `${this.app.BASE_URL}/api/v1/topics/${topic}/page/${page}/count/${count}/${this.lang()}`)
+      .pipe(take(1));
   }
 
   getTopic(topic_id): any {
-    return this.http.get( `${this.app.BASE_URL}/api/v1/topic/${topic_id}/${this.lang()}`);
+    return this.http.get( `${this.app.BASE_URL}/api/v1/topic/${topic_id}/${this.lang()}`)
+      .pipe(take(1));
   }
 
   getChannelTopic(topic_id, max): any {
-    return this.http.get( `${this.app.BASE_URL}/api/v1/youtube/${topic_id}/${max}/${this.lang()}`);
+    return this.http.get( `${this.app.BASE_URL}/api/v1/youtube/${topic_id}/${max}/${this.lang()}`)
+      .pipe(take(1));
   }
 
   getPostbySlug(slug): any {
-    return this.http.get( `${this.app.BASE_URL}/api/v1/slug/${slug}/${this.lang()}`);
+    return this.http.get( `${this.app.BASE_URL}/api/v1/slug/${slug}/${this.lang()}`)
+      .pipe(take(1));
   }
 
   postContact(values: { contact_name: String, contact_subject: String, contact_message: String, contact_email: String }): any {
-    return this.http.post( `${this.app.BASE_URL}/api/v1/contact/`, values);
+    return this.http.post( `${this.app.BASE_URL}/api/v1/contact/`, values)
+      .pipe(take(1));
   }
 
   ytThumb(url) {

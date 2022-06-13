@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { take } from 'rxjs/Operators';
 
 import { ApiProvider } from './api';
 
@@ -23,7 +24,8 @@ export class ReportService {
       });
     }
 
-    return this.http.get(`${this.app.BASE_URL}/${this.REPORT_URL}`, { headers });
+    return this.http.get(`${this.app.BASE_URL}/${this.REPORT_URL}`, { headers })
+      .pipe(take(1));
   }
 
   getDate(date, filters?): any {
@@ -34,6 +36,7 @@ export class ReportService {
       });
     }
     
-    return this.http.get(`${this.app.BASE_URL}/${this.REPORT_URL}-group/${date}`, { headers });
+    return this.http.get(`${this.app.BASE_URL}/${this.REPORT_URL}-group/${date}`, { headers })
+      .pipe(take(1));
   }
 }

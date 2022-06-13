@@ -44,7 +44,7 @@ export class MembersInfoPage implements OnInit {
     );
 
     // set group name
-    this.app.names
+    this.app.names$
     .subscribe(res => {
       this.groupsName = res.groups;
     });

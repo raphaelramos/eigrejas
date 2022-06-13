@@ -41,7 +41,7 @@ export class GroupsPage implements OnInit {
       this.networks = res.networks;
     });
    // set group name
-   this.app.names
+   this.app.names$
     .subscribe(res => {
       this.groupsName = res.groups;
     });
@@ -68,7 +68,7 @@ export class GroupsPage implements OnInit {
     this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe(res => {
       this.groups = [...this.groups, ...res];
 
-      if (res.lenght < this.results) {
+      if (res.length < this.results) {
         event.target.disabled = true;
       }
       event.target.complete();

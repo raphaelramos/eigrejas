@@ -60,7 +60,7 @@
                 </div>
             </ion-menu-toggle>
 
-            <ion-menu-toggle *ngIf="newVersion" auto-hide="false">
+            <ion-menu-toggle *ngIf="newVersion$" auto-hide="false">
                 <div class="menu_flex" (click)="app.update()">
                     <ion-icon color="medium" name="refresh-outline"></ion-icon>
                     <div>

@@ -10,13 +10,15 @@ registerLocaleData(localePt);
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
-import { SQLite } from '@ionic-native/sqlite/ngx';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+import { SQLitePorter } from '@awesome-cordova-plugins/sqlite-porter/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 import { ApiProvider } from './services/api';
 import { NavExtrasService } from './services/nav.service';
+
+import { ErrorService } from './shared/error.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,6 +55,7 @@ import { environment } from '../environments/environment';
     ScreenOrientation,
     CallNumber,
     ApiProvider,
+    ErrorService,
     NavExtrasService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },

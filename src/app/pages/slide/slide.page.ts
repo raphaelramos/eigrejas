@@ -5,7 +5,7 @@ import { IonSlides, GestureController } from '@ionic/angular';
 import { ApiProvider } from 'src/app/services/api';
 import { NavExtrasService } from 'src/app/services/nav.service';
 
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-slide',

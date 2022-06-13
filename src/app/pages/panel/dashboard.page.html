@@ -18,75 +18,11 @@
           <ion-ripple-effect type="unbounded"></ion-ripple-effect>
         </div>
       </ion-col>
-
-      <ion-col size="6" [routerLink]="['members']" *ngIf="checkPermissions(1)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="people-outline"></ion-icon>
-          <p>Membros</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['decisions']" *ngIf="checkPermissions(2)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="happy-outline"></ion-icon>
-          <p>Decisões</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['count']" *ngIf="checkPermissions(3)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="podium-outline"></ion-icon>
-          <p>Contagens</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['groups']" *ngIf="checkPermissions(4)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="layers-outline"></ion-icon>
-          <p>{{ groupsName }}</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['reports']" *ngIf="checkPermissions(8)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="pie-chart-outline"></ion-icon>
-          <p>Relatórios</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['ministries']" *ngIf="checkPermissions(5)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="copy-outline"></ion-icon>
-          <p>Ministérios</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['coming-soon']" *ngIf="checkPermissions(6)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="calendar-clear-outline"></ion-icon>
-          <p>Eventos</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['coming-soon']" *ngIf="checkPermissions(7)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="wallet-outline"></ion-icon>
-          <p>Financeiro</p>
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </div>
-      </ion-col>
-
-      <ion-col size="6" [routerLink]="['places']" *ngIf="checkPermissions(9)">
-        <div class="ion-activatable ripple-parent bg padding-button ion-text-center">
-          <ion-icon size="large" name="locate-outline"></ion-icon>
-          <p>Locais</p>
+      
+      <ion-col *ngFor="let menu of menus" size="6">
+        <div [routerLink]="[menu.router]" *ngIf="checkPermissions(menu.permission)" class="ion-activatable ripple-parent bg padding-button ion-text-center">
+          <ion-icon size="large" [name]="menu.icon"></ion-icon>
+          <p>{{menu.name}}</p>
           <ion-ripple-effect type="unbounded"></ion-ripple-effect>
         </div>
       </ion-col>

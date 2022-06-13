@@ -3,6 +3,8 @@ import { IonInfiniteScroll } from '@ionic/angular';
 
 import { PanelService } from 'src/app/services/panel.service';
 import { DeleteService } from 'src/app/services/delete.service';
+import { ErrorService } from 'src/app/shared/error.service';
+import { Member } from '../../../models/member';
 
 @Component({
   selector: 'app-members',
@@ -14,21 +16,20 @@ export class MembersPage implements OnInit {
 
   page = 1;
   results = 15;
-  loading = true;
-  errorMessage = false;
   searchText = '';
   groupId = '';
   placeId = '';
   ministryId = '';
   model = 'member';
-  members = [];
+  members = null;
   places = [];
 
   skeletons = [0, 0, 0, 0, 0, 0, 0, 0]; //qtd loading
 
   constructor(
     private panelService: PanelService,
-    private deleteService: DeleteService
+    private deleteService: DeleteService,
+    private errorService: ErrorService
   ) { }
 
   ngOnInit() {
@@ -42,23 +43,20 @@ export class MembersPage implements OnInit {
   }
 
   load() {
-    this.errorMessage = false;
-    this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe(res => {
-      this.loading = false;
+    this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe((res: [Member]) => {
       this.members = res;
-    }, error => {
-      this.loading = false;
-      this.errorMessage = true;
+    }, (error: string) => {
+      this.errorService.message(error);
     });
   }
 
   doInfinite(event: any) {
     this.page++;
 
-    this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe(res => {
+    this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe((res: [Member]) => {
       this.members = [...this.members, ...res];
 
-      if (res.lenght < this.results) {
+      if (res.length < this.results) {
         event.target.disabled = true;
       }
       event.target.complete();

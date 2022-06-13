@@ -11,7 +11,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   church = null;
 
   constructor(public authService: AuthService, public app: ApiProvider) {
-    this.app.church
+    this.app.church$
     .subscribe(res => {
       if (res) {
         this.church = res;

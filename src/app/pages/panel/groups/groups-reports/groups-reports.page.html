@@ -9,8 +9,23 @@
 
 <ion-content>
   <ion-row>
-    <ion-col>
-      <ion-datetime displayFormat="MM/YYYY" placeholder="Anterir a" (ionChange)="search($event)" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+    <ion-col>   
+      <ion-item color="none" lines="none" button="true" id="open-date-input">
+        <ion-label>Anterir a</ion-label>
+        <ion-text slot="end">{{ dateValue }}</ion-text>
+        <ion-popover trigger="open-date-input" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetime
+              presentation="date"
+              (ionChange)="dateValue = formatDate(popoverDatetime.value); search($event)"
+              displayFormat="MM/yyyy"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
     </ion-col>
   </ion-row>
 

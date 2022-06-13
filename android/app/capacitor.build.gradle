@@ -16,6 +16,7 @@ dependencies {
     implementation project(':capacitor-browser')
     implementation project(':capacitor-clipboard')
     implementation project(':capacitor-device')
+    implementation project(':capacitor-geolocation')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-network')
@@ -24,6 +25,7 @@ dependencies {
     implementation project(':capacitor-status-bar')
     implementation project(':capacitor-storage')
     implementation project(':capacitor-toast')
+    implementation project(':robingenz-capacitor-android-dark-mode-support')
 
 }
 

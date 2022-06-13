@@ -5,7 +5,7 @@ import { ApiProvider } from 'src/app/services/api';
 import { TopicsService } from 'src/app/services/topics.service';
 import { NavExtrasService } from 'src/app/services/nav.service';
 
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
     this.screenOrientation.unlock();
 
     // set logo
-    this.app.logo
+    this.app.logo$
     .subscribe(res => {
       this.logo = res;
     });

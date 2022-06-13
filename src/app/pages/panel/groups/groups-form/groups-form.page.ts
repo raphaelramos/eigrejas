@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 import { extractErrorMessagesFromErrorResponse } from '../../../../shared/errorResponse';
 import { FormStatus } from '../../../../shared/formStatus';
@@ -28,6 +29,9 @@ export class GroupsFormPage implements OnInit {
   networks = [];
   members = [];
   pastors = [];
+  dateValue: string;
+  dateValueShedule: string;
+  today = new Date();
   days = [
     { id: 1, name: 'Domingo' },
     { id: 2, name: 'Segunda-feira' },
@@ -95,6 +99,14 @@ export class GroupsFormPage implements OnInit {
       'district': [''],
       'address': ['']
     });
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'dd/MM/yyyy');
+  }
+
+  formatDateTime(value: string) {
+    return format(parseISO(value), 'H:mm');
   }
 
   save() {

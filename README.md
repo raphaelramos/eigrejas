@@ -9,14 +9,12 @@
  - Plugins https://capacitorjs.com/
  
 ### Direitos ###
- - O código fonte deste software é de Raphael Ramos.
+ - O código fonte deste software é de Raphael Ramos. https://r2company.com.br
 
  ### Commands ###
 
 * ionic generate page pages/name
-
 * ionic serve
-* cordova-check-plugins --update=auto
 
 # PROD #
-* ionic capacitor build android --prod --release
+* ionic capacitor build android --prod

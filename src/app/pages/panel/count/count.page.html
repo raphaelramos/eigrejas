@@ -11,14 +11,30 @@
   <ion-row>
     <ion-col>
       <ion-item color="none" lines="none">
-        <ion-select placeholder="Ordem" cancelText="Cancelar" (ionChange)="searchOrder($event)">
+        <ion-select placeholder="Ordem" cancelText="Cancelar" [(ngModel)]="order" (ionChange)="searchOrder($event)">
           <ion-select-option value="from">A partir de</ion-select-option>
           <ion-select-option value="previous">Anterior a</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
     <ion-col>
-      <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Data" (ionChange)="search($event)" cancelText="Cancelar" doneText="Confirmar"></ion-datetime>
+      <ion-item color="none" lines="none" button="true" id="open-date-input">
+        <ion-label>Data</ion-label>
+        <ion-text slot="end">{{ dateValue }}</ion-text>
+        <ion-popover trigger="open-date-input" show-backdrop="false">
+          <ng-template>
+            <ion-datetime
+              #popoverDatetime
+              presentation="date"
+              (ionChange)="dateValue = formatDate(popoverDatetime.value); search($event)"
+              displayFormat="dd/MM/yyyy"
+              locale="pt-BR"
+              cancelText="Cancelar" doneText="OK"
+              [max]="today | date: 'yyyy-MM-dd'"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
     </ion-col>
     <ion-col size="12">
       <ion-item color="none" lines="none">

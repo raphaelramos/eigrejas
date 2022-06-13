@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 import { extractErrorMessagesFromErrorResponse } from '../../../../shared/errorResponse';
 import { FormStatus } from '../../../../shared/formStatus';
@@ -22,6 +23,8 @@ export class CountFormPage implements OnInit {
   formStatus = new FormStatus();
   saving = false;
   places = [];
+  dateValue: string;
+  today = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +55,10 @@ export class CountFormPage implements OnInit {
         }
       );
     }
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'dd/MM/yyyy H:mm');
   }
 
   initForm() {

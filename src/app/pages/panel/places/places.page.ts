@@ -51,7 +51,7 @@ export class PlacesPage implements OnInit {
     this.panelService.getIndex(this.model, this.page, this.results, this.searchText).subscribe(res => {
       this.places = [...this.places, ...res];
 
-      if (res.lenght < this.results) {
+      if (res.length < this.results) {
         event.target.disabled = true;
       }
       event.target.complete();

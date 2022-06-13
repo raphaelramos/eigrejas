@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
           this.mask(value);
         });
 
-        this.app.infoChurch.subscribe(res => {
+        this.app.infoChurch$.subscribe(res => {
             if (res) {
                 this.allow_register = !!res.allow_register_status;
             }
@@ -125,25 +125,24 @@ export class LoginPage implements OnInit {
                         key: 'user',
                         value: JSON.stringify(data),
                     });
-                    this.app.userData.next(data);
+                    this.app.userData$.next(data);
                     this.load = false;
                     this.alertService.presentToast("Bem-vindo");
                     this.navCtrl.navigateRoot('/panel');
                 });
             },
             (errorResponse: HttpErrorResponse) => {
-                // Erro nos dados
-                if (errorResponse.status === 400) {
-                    this.loginError = true;
-                    return this.alertService.presentToast("Usuário ou senha incorretos");
-                    // Ultrapassou limite de tentativas
-                } else if (errorResponse.status === 429) {
-                    this.loginError = true;
-                    return this.alertService.presentToast("Limite de tentativas. Você poderá entrar daqui 1 minuto");
-                }
-                // Sem conexão com o servidor
                 this.loginError = true;
-                return this.alertService.presentToast("Sem conexão com o servidor");
+                switch (errorResponse.status) {
+                    case 400:
+                        this.alertService.presentToast("Usuário ou senha incorretos");
+                        break;
+                    case 429:
+                        this.alertService.presentToast("Limite de tentativas. Você poderá entrar daqui 1 minuto");
+                        break;
+                    default:
+                        return this.alertService.presentToast("Sem conexão com o servidor");
+                }
             }
         );
     }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service';
+import { format, parseISO } from 'date-fns';
 
 import { Storage } from '@capacitor/storage';
 
@@ -24,6 +25,8 @@ export class RegisterPage implements OnInit {
   phoneMask = '(99) 99999-9999';
   saving = false;
   allow_member_register = false;
+  dateValue: string;
+  today = new Date();
 
   constructor(private formBuilder: FormBuilder,
     private navCtrl: NavController,
@@ -33,6 +36,7 @@ export class RegisterPage implements OnInit {
     private alertService: AlertService,
     private app: ApiProvider
   ) { }
+
   ngOnInit() {
     this.onRegisterForm = this.formBuilder.group({
       'name': [null, Validators.compose([
@@ -60,7 +64,7 @@ export class RegisterPage implements OnInit {
       'address': ['']
     });
 
-    this.app.infoChurch.subscribe(res => {
+    this.app.infoChurch$.subscribe(res => {
       if (res) {
         this.allow_member_register = !!res.allow_member_register_status;
       }
@@ -76,6 +80,10 @@ export class RegisterPage implements OnInit {
       }
       return { 'fieldMatch' : true };
     }
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'dd/MM/yyyy H:mm');
   }
 
   signUp() {
@@ -95,7 +103,7 @@ export class RegisterPage implements OnInit {
                 key: 'user',
                 value: JSON.stringify(data),
               });
-              this.app.userData.next(data);
+              this.app.userData$.next(data);
               this.alertService.presentToast("Bem-vindo");
               this.navCtrl.navigateRoot('/home');
             });

@@ -58,7 +58,7 @@ export class GroupsMembersPage implements OnInit {
     this.panelService.getIndex(this.model, this.page, this.results, this.searchText, this.filters()).subscribe(res => {
       this.members = [...this.members, ...res];
 
-      if (res.lenght < this.results) {
+      if (res.length < this.results) {
         event.target.disabled = true;
       }
       event.target.complete();

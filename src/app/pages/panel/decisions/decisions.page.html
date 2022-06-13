@@ -28,19 +28,7 @@
     </ion-col>
   </ion-row>
 
-  <!-- Skeleton screen -->
-  <ion-list *ngIf="loading" fixed>
-    <ion-item *ngFor="let skeleton of skeletons">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-avatar>
-      <ion-label>
-        <h2><ion-skeleton-text class="h20" animated></ion-skeleton-text></h2>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
+  <ion-list *ngIf="decisions != null; else loading">
     <ion-item-sliding *ngFor="let decision of decisions; let i = index">
       <ion-item [routerLink]="['info', decision.id]">
         <ion-avatar slot="start">
@@ -57,7 +45,7 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    <ion-item *ngIf="!loading && decisions.length < 1">
+    <ion-item *ngIf="decisions.length < 1">
       Nenhum Resultado
     </ion-item>
   </ion-list>
@@ -66,6 +54,20 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando ...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <!-- Skeleton screen -->
+  <ng-template #loading>
+    <ion-list fixed>
+      <ion-item *ngFor="let skeleton of skeletons">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text class="h20" animated></ion-skeleton-text></h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-template>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['form']">

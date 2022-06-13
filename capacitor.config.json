@@ -7,7 +7,7 @@
   "plugins": {
     "SplashScreen": {
       "androidScaleType": "CENTER_CROP",
-      "launchShowDuration": 6000,
+      "launchShowDuration": 4000,
       "launchAutoHide": false,
       "splashFullScreen": true
     }
